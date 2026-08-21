@@ -4,22 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asa Azul</title>
+    <title>Asa Azul | Rio de Janeiro</title>
     <link rel="shortcut icon" href="../imagens/arara_com_circulo.png">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../css/estilogeral.css">
     <link rel="stylesheet" type="text/css" href="../css/estilopaginapadraoviagens.css">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!--Icones: https://icons.getbootstrap.com/*/-->
 </head>
 
 <body>
-    <!-----------------header---------------->
+
+    <!-----------------header (igual ao index)---------------->
     <header>
         <div class="nav-topo container-margem mx-auto">
-            <a href="#" class="nav-logo">
+            <a href="index.html" class="nav-logo">
                 <img src="../imagens/logo-principal.png" alt="logo Asa Azul">
             </a>
 
@@ -42,93 +42,186 @@
                 </button>
             </div>
         </div>
-    </header>
 
-    <!---- Modal de Login ---->
-    <div class="modal fade" id="modalLogin" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content login-modal-content">
-
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-
-                <div class="login-modal-header">
-                    <img src="imagens/logo-principal.png" alt="logo Asa Azul" class="login-logo">
-                    <h3 id="modalTitulo">Bem-vindo de volta</h3>
-                    <p id="modalSubtitulo">Entre para acompanhar suas viagens</p>
-                </div>
-
-                <form class="login-form" id="formLogin">
-                    <div class="mb-3">
-                        <label for="loginEmail" class="form-label">E-mail</label>
-                        <input type="email" class="form-control" id="loginEmail" placeholder="seuemail@exemplo.com"
-                            required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="loginSenha" class="form-label">Senha</label>
-                        <input type="password" class="form-control" id="loginSenha" placeholder="••••••••" required>
-                    </div>
-
-                    <div class="login-opcoes">
-                        <label class="lembrar">
-                            <input type="checkbox"> Lembrar de mim
-                        </label>
-                        <a href="#" class="esqueci">Esqueci minha senha</a>
-                    </div>
-
-                    <button type="submit" class="btn-entrar">Entrar</button>
-
-                    <p class="login-cadastro">
-                        Ainda não tem conta? <a href="#" id="linkIrCadastro">Cadastre-se</a>
-                    </p>
-                </form>
-
-                <form class="login-form" id="formCadastro" style="display:none;">
-                    <div class="mb-3">
-                        <label for="cadNome" class="form-label">Nome completo</label>
-                        <input type="text" class="form-control" id="cadNome" placeholder="Seu nome" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="cadEmail" class="form-label">E-mail</label>
-                        <input type="email" class="form-control" id="cadEmail" placeholder="seuemail@exemplo.com"
-                            required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="cadSenha" class="form-label">Senha</label>
-                        <input type="password" class="form-control" id="cadSenha" placeholder="••••••••" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="cadConfirmarSenha" class="form-label">Confirmar senha</label>
-                        <input type="password" class="form-control" id="cadConfirmarSenha" placeholder="••••••••"
-                            required>
-                    </div>
-
-                    <button type="submit" class="btn-entrar">Criar conta</button>
-
-                    <p class="login-cadastro">
-                        Já tem conta? <a href="#" id="linkVoltarLogin">Entrar</a>
-                    </p>
-                </form>
-
-            </div>
+        <div class="nav-abas-wrap">
+            <nav class="nav-menu-group container-margem mx-auto">
+                <a href="index.html" class="nav-menu" data-section="passagens">
+                    <i class="bi bi-briefcase me-1"></i> Passagens
+                </a>
+                <a href="viagens-curtas.html" class="nav-menu" data-section="viagens-curtas">
+                    <i class="bi bi-signpost-split me-1"></i> Viagens curtas
+                </a>
+                <a href="viagens-digitais.html" class="nav-menu" data-section="viagens-digitais">
+                    <i class="bi bi-laptop me-1"></i> Viagens digitais
+                </a>
+                <a href="ofertas.html" class="nav-menu" data-section="ofertas">
+                    <i class="bi bi-tags me-1"></i> Ofertas
+                </a>
+            </nav>
         </div>
-    </div>
+    </header>
 
     <!------------------main----------------->
     <main>
-        <section class="container-margem" id="viagem">
-            <h1 class="titulo">Nome da cidade</h1>
 
-            <div class="conteudo-viagem justify-content-between my-4 d-flex">
-                <img  src="../imagens/saoluisma.jpg">
-
-                <div class="texto-viagem">
-                    <h4 class="titulo topico-viagem">Estado:</h4>
-                    <p>Minas Gerais</p>
+        <!-- Hero da viagem -->
+        <section class="viagem-hero" style="background-image:url('../imagens/rio_de_janeiro.jpg');">
+            <div class="viagem-hero-overlay">
+                <div class="container-margem">
+                    <nav class="viagem-breadcrumb">
+                        <a href="index.html">Início</a> <i class="bi bi-chevron-right"></i> Rio de Janeiro
+                    </nav>
+                    <h1>Rio de Janeiro</h1>
+                    <p><i class="bi bi-geo-alt-fill"></i> Rio de Janeiro, RJ</p>
                 </div>
             </div>
-
         </section>
+
+        <!-- Barra de info rápida -->
+        <section class="container-margem">
+            <div class="viagem-infobar">
+                <div>
+                    <span class="viagem-label">A partir de</span>
+                    <span class="viagem-valor">R$ 890</span>
+                </div>
+                <div>
+                    <span class="viagem-label">Duração sugerida</span>
+                    <span class="viagem-valor">4 dias</span>
+                </div>
+                <div>
+                    <span class="viagem-label">Melhor época</span>
+                    <span class="viagem-valor">Set a Mar</span>
+                </div>
+                <a href="reserva.html?destino=SDU" class="btn-reservar">
+                    Reservar viagem <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Sobre o destino -->
+        <section class="container-margem viagem-secao">
+            <h2 class="titulo">Sobre o destino</h2>
+            <p class="viagem-texto">
+                Cidade Maravilhosa, o Rio de Janeiro reúne praias famosas, montanhas cobertas de mata
+                atlântica e um dos patrimônios culturais mais ricos do Brasil. Entre o Cristo Redentor,
+                o Pão de Açúcar e as rodas de samba, cada esquina carrega um pedaço da identidade brasileira.
+            </p>
+        </section>
+
+        <!-- Pontos culturais - foco da empresa -->
+        <section class="container-margem viagem-secao">
+            <h2 class="titulo">Pontos culturais</h2>
+            <p class="viagem-texto text-center mb-4">
+                Experiências que mostram a cultura, a história e as tradições locais.
+            </p>
+
+            <div class="cultura-grid">
+
+                <div class="cultura-card">
+                    <img src="../imagens/cristo.jpg" alt="Cristo Redentor">
+                    <div class="cultura-info">
+                        <span class="cultura-tag"><i class="bi bi-bank2"></i> Patrimônio histórico</span>
+                        <h4>Cristo Redentor</h4>
+                        <p>Uma das Sete Maravilhas do Mundo Moderno e símbolo da fé e da cultura carioca.</p>
+                    </div>
+                </div>
+
+                <div class="cultura-card">
+                    <img src="../imagens/samba.jpg" alt="Roda de samba na Lapa">
+                    <div class="cultura-info">
+                        <span class="cultura-tag"><i class="bi bi-music-note-beamed"></i> Tradição musical</span>
+                        <h4>Rodas de samba na Lapa</h4>
+                        <p>Berço do samba carioca, com bares históricos e música ao vivo todas as noites.</p>
+                    </div>
+                </div>
+
+                <div class="cultura-card">
+                    <img src="../imagens/feira.jpg" alt="Feira de artesanato">
+                    <div class="cultura-info">
+                        <span class="cultura-tag"><i class="bi bi-palette"></i> Artesanato local</span>
+                        <h4>Feira de Ipanema</h4>
+                        <p>Artesãos locais expõem peças únicas que carregam a identidade da cidade.</p>
+                    </div>
+                </div>
+
+                <div class="cultura-card">
+                    <img src="../imagens/culinaria.jpg" alt="Culinária carioca">
+                    <div class="cultura-info">
+                        <span class="cultura-tag"><i class="bi bi-cup-hot"></i> Gastronomia</span>
+                        <h4>Culinária carioca</h4>
+                        <p>Da feijoada aos botecos de esquina, sabores que contam a história da cidade.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Galeria de fotos -->
+        <section class="container-margem viagem-secao">
+            <h2 class="titulo">Galeria</h2>
+            <div class="viagem-galeria">
+                <img src="../imagens/rio1.jpg" alt="Foto do destino">
+                <img src="../imagens/rio2.jpg" alt="Foto do destino">
+                <img src="../imagens/rio3.jpg" alt="Foto do destino">
+            </div>
+        </section>
+
+        <!-- CTA final -->
+        <section class="viagem-cta">
+            <div class="container-margem">
+                <h3>Pronto para conhecer o Rio de Janeiro?</h3>
+                <p>Garanta sua passagem e viva essa experiência cultural completa.</p>
+                <a href="reserva.html?destino=SDU" class="btn-reservar btn-reservar-claro">
+                    Reservar agora <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-------------footer (igual ao index)------------>
+    <footer class="container-margem mx-auto">
+        <div id="social">
+            <ul class="list-unstyled d-flex gap-4 p-0 justify-content-center my-3">
+                <li><a href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a></li>
+                <li><a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a></li>
+            </ul>
+        </div>
+
+        <section class="container-margem d-flex flex-wrap justify-content-between mx-auto px-5 py-3 gap-3" id="conteudo">
+            <div id="alunos">
+                <strong>Alunos<br></strong>
+                <a href="">Miguel Revuelta Mendes<br></a>
+                <a href="">Kayke<br></a>
+                <a href="">Ana Luiza<br></a>
+                <a href="">Isaac<br></a>
+                <a href="">Duda<br></a>
+                <a href="">Professora: Janaína</a>
+            </div>
+
+            <div id="compra-segura">
+                <strong>Compra segura<br></strong>
+                <a href="">Termos e condições<br></a>
+                <a href="">Política de privacidade<br></a>
+                <a href="">Black Friday<br></a>
+            </div>
+
+            <div id="negocios">
+                <strong>Negocie conosco<br></strong>
+                <a href="">Anuncie sua propriedade<br></a>
+                <a href="">Programas de viagens<br></a>
+                <a href="">Divulgue locais culturais</a>
+            </div>
+        </section>
+
+        <section class="container-margem p-2 border-top border-secondary border-1 d-flex justify-content-center" id="direitos">
+            <p class="mb-0 text-secondary">2026 - Todos os direitos reservados</p>
+        </section>
+    </footer>
+
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jsindex.js"></script>
+</body>
+
+</html>
