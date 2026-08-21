@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asa Azul</title>
+    <link rel="shortcut icon" href="../imagens/arara_com_circulo.png">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../css/estilogeral.css">
+    <link rel="stylesheet" type="text/css" href="../css/estilopaginapadraoviagens.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!--Icones: https://icons.getbootstrap.com/*/-->
+</head>
+
+<body>
+    <!-----------------header---------------->
+    <header>
+        <div class="nav-topo container-margem mx-auto">
+            <a href="#" class="nav-logo">
+                <img src="../imagens/logo-principal.png" alt="logo Asa Azul">
+            </a>
+
+            <button class="menu-toggle btn btn-outline-primary me-2">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="nav-suporte-group" id="navbarNav">
+                <a href="#" class="nav-suporte">
+                    <i class="bi bi-compass me-1"></i> Seja um guia
+                </a>
+                <a href="#" class="nav-suporte">
+                    <i class="bi bi-luggage-fill me-1"></i> Minhas viagens
+                </a>
+                <a href="#" class="nav-suporte">
+                    <i class="bi bi-question-circle me-1"></i> Ajuda
+                </a>
+                <button class="login-btn" data-bs-toggle="modal" data-bs-target="#modalLogin">
+                    <i class="bi bi-person-circle"></i> Login
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!---- Modal de Login ---->
+    <div class="modal fade" id="modalLogin" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content login-modal-content">
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+
+                <div class="login-modal-header">
+                    <img src="imagens/logo-principal.png" alt="logo Asa Azul" class="login-logo">
+                    <h3 id="modalTitulo">Bem-vindo de volta</h3>
+                    <p id="modalSubtitulo">Entre para acompanhar suas viagens</p>
+                </div>
+
+                <form class="login-form" id="formLogin">
+                    <div class="mb-3">
+                        <label for="loginEmail" class="form-label">E-mail</label>
+                        <input type="email" class="form-control" id="loginEmail" placeholder="seuemail@exemplo.com"
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="loginSenha" class="form-label">Senha</label>
+                        <input type="password" class="form-control" id="loginSenha" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="login-opcoes">
+                        <label class="lembrar">
+                            <input type="checkbox"> Lembrar de mim
+                        </label>
+                        <a href="#" class="esqueci">Esqueci minha senha</a>
+                    </div>
+
+                    <button type="submit" class="btn-entrar">Entrar</button>
+
+                    <p class="login-cadastro">
+                        Ainda não tem conta? <a href="#" id="linkIrCadastro">Cadastre-se</a>
+                    </p>
+                </form>
+
+                <form class="login-form" id="formCadastro" style="display:none;">
+                    <div class="mb-3">
+                        <label for="cadNome" class="form-label">Nome completo</label>
+                        <input type="text" class="form-control" id="cadNome" placeholder="Seu nome" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cadEmail" class="form-label">E-mail</label>
+                        <input type="email" class="form-control" id="cadEmail" placeholder="seuemail@exemplo.com"
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cadSenha" class="form-label">Senha</label>
+                        <input type="password" class="form-control" id="cadSenha" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cadConfirmarSenha" class="form-label">Confirmar senha</label>
+                        <input type="password" class="form-control" id="cadConfirmarSenha" placeholder="••••••••"
+                            required>
+                    </div>
+
+                    <button type="submit" class="btn-entrar">Criar conta</button>
+
+                    <p class="login-cadastro">
+                        Já tem conta? <a href="#" id="linkVoltarLogin">Entrar</a>
+                    </p>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!------------------main----------------->
+    <main>
+        <section class="container-margem" id="viagem">
+            <h1 class="titulo">Nome da cidade</h1>
+
+            <div class="conteudo-viagem justify-content-between my-4 d-flex">
+                <img  src="../imagens/saoluisma.jpg">
+
+                <div class="texto-viagem">
+                    <h4 class="titulo topico-viagem">Estado:</h4>
+                    <p>Minas Gerais</p>
+                </div>
+            </div>
+
+        </section>
