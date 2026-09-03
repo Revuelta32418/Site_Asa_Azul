@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asa Azul</title>
+    <link rel="shortcut icon" href="../imagens/arara_com_circulo.png">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../css/estilogeral.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!--Icones: https://icons.getbootstrap.com/*/-->
+</head>
+
+<body>
+    <!-----------------header---------------->
+    <header>
+        <div class="nav-topo container-margem mx-auto">
+            <a href="#" class="nav-logo">
+                <img src="../imagens/logo-principal.png" alt="logo Asa Azul">
+            </a>
+
+            <button class="menu-toggle btn btn-outline-primary me-2">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="nav-suporte-group" id="navbarNav">
+                <a href="#" class="nav-suporte">
+                    <i class="bi bi-compass me-1"></i> Seja um guia
+                </a>
+                <a href="#" class="nav-suporte">
+                    <i class="bi bi-luggage-fill me-1"></i> Minhas viagens
+                </a>
+                <a href="#" class="nav-suporte">
+                    <i class="bi bi-question-circle me-1"></i> Ajuda
+                </a>
+                <button class="login-btn" data-bs-toggle="modal" data-bs-target="#modalLogin">
+                    <i class="bi bi-person-circle"></i> Login
+                </button>
+            </div>
+        </div>
+
+
+        <div class="nav-abas-wrap">
+            <nav class="nav-menu-group container-margem mx-auto">
+                <a class="nav-menu" href="../index.html">
+                    <i class="bi bi-airplane"></i> Passagens
+                </a>
+                <a class="nav-menu active">
+                    <i class="bi bi-car-front-fill"></i> Viagens curtas
+                </a>
+                <a class="nav-menu">
+                    <i class="bi bi-laptop me-1"></i> Viagens digitais
+                </a>
+                <a class="nav-menu">
+                    <i class="bi bi-tags me-1"></i> Ofertas
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!---- Modal de Login ---->
+    <div class="modal fade" id="modalLogin" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content login-modal-content">
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+
+                <div class="login-modal-header">
+                    <img src="imagens/logo-principal.png" alt="logo Asa Azul" class="login-logo">
+                    <h3 id="modalTitulo">Bem-vindo de volta</h3>
+                    <p id="modalSubtitulo">Entre para acompanhar suas viagens</p>
+                </div>
+
+                <form class="login-form" id="formLogin">
+                    <div class="mb-3">
+                        <label for="loginEmail" class="form-label">E-mail</label>
+                        <input type="email" class="form-control" id="loginEmail" placeholder="seuemail@exemplo.com"
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="loginSenha" class="form-label">Senha</label>
+                        <input type="password" class="form-control" id="loginSenha" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="login-opcoes">
+                        <label class="lembrar">
+                            <input type="checkbox"> Lembrar de mim
+                        </label>
+                        <a href="#" class="esqueci">Esqueci minha senha</a>
+                    </div>
+
+                    <button type="submit" class="btn-entrar">Entrar</button>
+
+                    <p class="login-cadastro">
+                        Ainda não tem conta? <a href="#" id="linkIrCadastro">Cadastre-se</a>
+                    </p>
+                </form>
+
+                <form class="login-form" id="formCadastro" style="display:none;">
+                    <div class="mb-3">
+                        <label for="cadNome" class="form-label">Nome completo</label>
+                        <input type="text" class="form-control" id="cadNome" placeholder="Seu nome" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cadEmail" class="form-label">E-mail</label>
+                        <input type="email" class="form-control" id="cadEmail" placeholder="seuemail@exemplo.com"
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cadSenha" class="form-label">Senha</label>
+                        <input type="password" class="form-control" id="cadSenha" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cadConfirmarSenha" class="form-label">Confirmar senha</label>
+                        <input type="password" class="form-control" id="cadConfirmarSenha" placeholder="••••••••"
+                            required>
+                    </div>
+
+                    <button type="submit" class="btn-entrar">Criar conta</button>
+
+                    <p class="login-cadastro">
+                        Já tem conta? <a href="#" id="linkVoltarLogin">Entrar</a>
+                    </p>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!------------------main----------------->
+    <main>
+        <section>
+            
+
+        </section>
+
+
+        <!-------------FAQ------------>
+        <section class="container-margem mx-auto py-5">
+            <div class="row g-4">
+                <h2 class="faqh2 mb-0 text-center">FAQ</h2>
+                <p class="text-muted">
+                    Não encontrou a resposta que procurava? Entre em contacto com o nosso suporte através dos canais de
+                    atendimento.
+                </p>
+
+                <div class="col-12 col-md-5">
+
+                    <h6 class="separafaq text-uppercase text-muted fw-bold mt-4 mb-2">
+                        Compras e alterações
+                    </h6>
+                    <details class="mb-3">
+                        <summary class="pergunta fw-bold">
+                            Quais são as formas de pagamento aceitas?
+                        </summary>
+                        <div class="pt-2 ps-3">
+                            <p class="mb-0">
+                                Aceitamos PIX, cartões de crédito (com parcelamento) e boleto bancário.
+                            </p>
+                        </div>
+                    </details>
+                    <details class="mb-3">
+                        <summary class="pergunta fw-bold">
+                            Posso alterar a data da minha passagem?
+                        </summary>
+                        <div class="pt-2 ps-3">
+                            <p class="mb-0">
+                                Sim. Alterações podem ser feitas na aba "Minhas viagens", sujeitas a taxas e
+                                diferenciações tarifárias dependendo do seu pacote.
+                            </p>
+                        </div>
+                    </details>
+
+
+                    <h6 class="separafaq text-uppercase text-muted fw-bold mt-4 mb-2">
+                        Documentação
+                    </h6>
+                    <details class="mb-3">
+                        <summary class="pergunta fw-bold">
+                            Quais documentos eu preciso para realizar uma reserva?
+                        </summary>
+                        <div class="pt-2 ps-3">
+                            <p class="mb-0">
+                                Para a segurança e emissão das suas passagens, solicitamos dados como Nome Completo,
+                                CPF, RG, Data de Nascimento, Endereço e E-mail no momento da compra.
+                            </p>
+                        </div>
+                    </details>
+                    <details class="mb-3">
+                        <summary class="pergunta fw-bold">
+                            Menores de idade podem viajar sozinhos pela Asa Azul?
+                        </summary>
+                        <div class="pt-2 ps-3">
+                            <p class="mb-0">
+                                O utilizador principal do site deve ser maior de idade (acima de 18 anos) para contratar
+                                os pacotes. Menores devem viajar sempre acompanhados por um responsável legal.
+                            </p>
+                        </div>
+                    </details>
+
+
+                    <h6 class="separafaq text-uppercase text-muted fw-bold mt-4 mb-2">
+                        Viagens Digitais
+                    </h6>
+                    <details class="mb-3">
+                        <summary class="pergunta fw-bold">
+                            O que são as Viagens Digitais da Asa Azul?
+                        </summary>
+                        <div class="pt-2 ps-3">
+                            <p class="mb-0">
+                                São experiências culturais 100% virtuais para explorar a história, arquitetura e
+                                tradições do Brasil sem sair de casa.
+                            </p>
+                        </div>
+                    </details>
+                    <details class="mb-3">
+                        <summary class="pergunta fw-bold">
+                            Consigo usar a viagem virtual para planear uma física?
+                        </summary>
+                        <div class="pt-2 ps-3">
+                            <p class="mb-0">
+                                Sim! Podes usar a imersão digital como um guia prévio para conhecer o destino e
+                                selecionar os pontos que quiser visitar quando viajar fisicamente.
+                            </p>
+                        </div>
+                    </details>
+                    <details class="mb-3">
+                        <summary class="pergunta fw-bold">
+                            Como funciona o acesso? É pago?
+                        </summary>
+                        <div class="pt-2 ps-3">
+                            <p class="mb-0">
+                                Basta acessar a aba "Viagens Digitais". Com o objetivo de levar a cultura a todos e
+                                garantir a total acessibilidade, não há qualquer custo ou taxa para explorar os
+                                conteúdos disponíveis.
+                            </p>
+                        </div>
+                    </details>
+
+                </div>
+
+
+                <!------separacao------------------>
+                <div class="col-auto d-none d-md-block">
+                    <hr class="vr h-100 opacity-25" id="linhafaq">
+                </div>
+
+                <div class="col-12 col-md-5">
+
+                    <h6 class="separafaq text-uppercase text-muted fw-bold mt-4 mb-2">
+                        Destinos e Rotas
+                    </h6>
+                    <details class="mb-3">
+                        <summary class="pergunta fw-bold">
+                            A Asa Azul voa para fora do Brasil?
+                        </summary>
+                        <div class="pt-2 ps-3">
+                            <p class="mb-0">
+                                Não. Voamos apenas em território nacional. Nosso foco é conectar você aos melhores
+                                destinos brasileiros.
+                            </p>
+                        </div>
+                    </details>
+                    <details class="mb-3">
+                        <summary class="pergunta fw-bold">
+                            Quais tipos de destinos eu encontro no site?
+                        </summary>
+                        <div class="pt-2 ps-3">
+                            <p class="mb-0">
+                                Focamos no turismo de experiência fora do circuito de massa. Você encontrará roteiros
+                                por cidades históricas, comunidades tradicionais, pequenos municípios que costumam
+                                passar despercebidos, entre outros.
+                            </p>
+                        </div>
+                    </details>
+                    <details class="mb-3">
+                        <summary class="pergunta fw-bold">
+                            Como escolher o destino ideal para a minha viagem?
+                        </summary>
+                        <div class="pt-2 ps-3">
+                            <p class="mb-0">
+                                Em nosso site, você pode filtrar as passagens pelo seu estilo de viagem, seja para
+                                explorar a história do país ou descansar em um local calmo.
+                            </p>
+                        </div>
+                    </details>
+
+
+                    <h6 class="separafaq text-uppercase text-muted fw-bold mt-4 mb-2">
+                        Curadoria de viagem e Turismo local
+                    </h6>
+                    <details class="mb-3">
+                        <summary class="pergunta fw-bold">
+                            Qual é o compromisso da Asa Azul com o meio ambiente?
+                        </summary>
+                        <div class="pt-2 ps-3">
+                            <p class="mb-0">
+                                Como nossa marca é inspirada na arara azul, apoiamos projetos de preservação da fauna
+                                brasileira e investimos na redução de carbono.
+                            </p>
+                        </div>
+                    </details>
+                    <details class="mb-3">
+                        <summary class="pergunta fw-bold">
+                            Como vocês apoiam as comunidades dos destinos menos populosos?
+                        </summary>
+                        <div class="pt-2 ps-3">
+                            <p class="mb-0">
+                                Priorizamos parcerias com comércios locais e artesãos para incentivar o turismo
+                                sustentável e a economia da região.
+                            </p>
+                        </div>
+                    </details>
+
+
+                    <h6 class="separafaq text-uppercase text-muted fw-bold mt-4 mb-2">
+                        Serviços corporativos e Grupos
+                    </h6>
+                    <details class="mb-3">
+                        <summary class="pergunta fw-bold">
+                            A empresa possui soluções para viagens de negócios?
+                        </summary>
+                        <div class="pt-2 ps-3">
+                            <p class="mb-0">
+                                Sim. O plano "Asa Azul Corporativo" oferece flexibilidade de horários e facilidade de
+                                faturamento para empresas.
+                            </p>
+                        </div>
+                    </details>
+                    <details class="mb-3">
+                        <summary class="pergunta fw-bold">
+                            Existe desconto para viagens em grupo?
+                        </summary>
+                        <div class="pt-2 ps-3">
+                            <p class="mb-0">
+                                Sim. Para grupos acima de 10 pessoas, oferecemos tarifas diferenciadas através do nosso
+                                canal de atendimento exclusivo.
+                            </p>
+                        </div>
+                    </details>
+
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+
+    <!-------------footer------------>
+    <footer class="container-margem mx-auto">
+        <div id="social">
+            <ul class="list-unstyled d-flex gap-4 p-0 justify-content-center my-3">
+                <li><a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></li>
+            </ul>
+        </div>
+
+        <section class="container-margem  d-flex flex-wrap justify-content-between mx-auto px-5 py-3 gap-3"
+            id="conteudo">
+            <div id="alunos">
+                <strong>Alunos<br></strong>
+                <a href="">Miguel Revuelta Mendes<br></a>
+                <a href="">Kayke<br></a>
+                <a href="">Ana Luiza<br></a>
+                <a href="">Isaac<br></a>
+                <a href="">Duda<br></a>
+                <a href="">Professora: Janaína</a>
+            </div>
+
+            <div id="compra-segura">
+                <strong>Compra segura<br></strong>
+                <a href="">Termos e condições<br></a>
+                <a href="">Política de privacidade<br></a>
+                <a href="">Black Friday<br></a>
+            </div>
+
+            <div id="negocios">
+                <strong>Negocie conosco<br></strong>
+                <a href="">Anuncie sua propriedade<br></a>
+                <a href="">Programas de viagens<br></a>
+                <a href="">Divulgue locais culturais</a>
+            </div>
+        </section>
+
+        <section class="container-margem  p-2 border-top border-secondary border-1 d-flex justify-content-center"
+            id="direitos">
+            <p class="mb-0 text-secondary">2026 - Todos os direitos reservados</p>
+        </section>
+    </footer>
+
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jsindex.js"></script>
+</body>
+
+</html>
