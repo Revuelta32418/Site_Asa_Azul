@@ -78,3 +78,4 @@ window.addEventListener("resize", () => {
 
 atualizarcarrossel();
 iniciarAutoplay();
+
