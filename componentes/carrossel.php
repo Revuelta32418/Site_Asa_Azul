@@ -11,7 +11,7 @@
                 <div class="carrossel-tunel">
                     <div class="carrossel-vagoes">
                         <div class="cardCarrossel">
-                            <img src="imagens/rio_de_janeiro.jpg" alt="Rio de Janeiro">
+                            <img src="<?= $base ?>imagens/rio_de_janeiro.jpg" alt="Rio de Janeiro">
 
                             <div class="conteudoCard">
                                 <h4>Rio de Janeiro</h4>
@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="cardCarrossel">
-                            <img src="imagens/florianopolis.jpg" alt="Florianópolis">
+                            <img src="<?= $base ?>imagens/florianopolis.jpg" alt="Florianópolis">
 
                             <div class="conteudoCard">
                                 <h4>Florianópolis</h4>
@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="cardCarrossel">
-                            <img src="imagens/porto-seguro.png" alt="Porto Seguro">
+                            <img src="<?= $base ?>imagens/porto-seguro.png" alt="Porto Seguro">
 
                             <div class="conteudoCard">
                                 <h4>Porto Seguro</h4>
@@ -62,7 +62,7 @@
                         </div>
 
                         <div class="cardCarrossel">
-                            <img src="imagens/maceio.jpg" alt="Maceió">
+                            <img src="<?= $base ?>imagens/maceio.jpg" alt="Maceió">
 
                             <div class="conteudoCard">
                                 <h4>Maceió</h4>
@@ -79,7 +79,7 @@
                         </div>
 
                         <div class="cardCarrossel">
-                            <img src="imagens/foto5.jpg" alt="Bonito">
+                            <img src="<?= $base ?>imagens/foto5.jpg" alt="Bonito">
 
                             <div class="conteudoCard">
                                 <h4>Bonito</h4>
@@ -96,7 +96,7 @@
                         </div>
 
                         <div class="cardCarrossel">
-                            <img src="imagens/foto6.jpg" alt="Fernando de Noronha">
+                            <img src="<?= $base ?>imagens/foto6.jpg" alt="Fernando de Noronha">
 
                             <div class="conteudoCard">
                                 <h4>Fernando de Noronha</h4>
@@ -113,7 +113,7 @@
                         </div>
 
                         <div class="cardCarrossel">
-                            <img src="imagens/foto7.jpg" alt="Gramado">
+                            <img src="<?= $base ?>imagens/foto7.jpg" alt="Gramado">
 
                             <div class="conteudoCard">
                                 <h4>Gramado</h4>
@@ -130,7 +130,7 @@
                         </div>
 
                         <div class="cardCarrossel">
-                            <img src="imagens/foto4.jpg" alt="Lençóis Maranhenses">
+                            <img src="<?= $base ?>imagens/foto4.jpg" alt="Lençóis Maranhenses">
 
                             <div class="conteudoCard">
                                 <h4>Lençóis Maranhenses</h4>

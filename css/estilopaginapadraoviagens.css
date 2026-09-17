@@ -100,165 +100,30 @@
     color: var(--azul-escuro);
 }
 
-/*--------------Carrossel--------*/
-
-/*-----carrossel de cards-----*/
-#carrossel-cards {
-    position: relative;
+/*--------- navegação dos detalhes ------*/
+/* ---- Abas estilo TripAdvisor ---- */
+.viagem-abas{
+    border-bottom: 2px solid #E8EEF3;
+    overflow-x: auto;
 }
 
-.container-carrossel {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-
-/*Aqui serve para definir o tamanho do carrossel, e se um card
-passar do limite, o site esconde ele(ou a metade dele)*/
-.carrossel-tunel {
-    width: 100%;
-    overflow: hidden;
-    padding: 15px 0;
-}
-
-/*vagoes pois eles passam dentro do tunel*/
-.carrossel-vagoes {
-    display: flex;
-    gap: 24px;
-    transition: transform .7s ease;
-}
-
-.cardCarrossel {
-    flex: 0 0 calc((100% - 48px) / 3);
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    border-radius: 24px;
-    overflow: hidden;
-    border: 1px solid black;
-    transition: .35s ease;
-}
-
-.cardCarrossel:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 28px 45px rgba(0, 0, 0, .22);
-}
-
-.cardCarrossel img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    transition: .45s;
-}
-
-.cardCarrossel:hover img {
-    transform: scale(1.08);
-}
-
-.conteudoCard {
-    padding: 22px;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-
-.conteudoCard h4 {
-    color: var(--azul);
-    font-weight: 700;
-    margin-bottom: 12px;
-}
-
-.conteudoCard p {
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    font-size: .95rem;
-}
-
-.conteudoCard .btn {
-    width: 100%;
-    border-radius: 50px;
-    padding: 10px;
-    font-weight: 600;
-    transition: .3s;
-    margin-top: auto;
-}
-
-.conteudoCard .btn:hover {
-    transform: translateY(-2px);
-}
-
-.carrossel-btn {
-    position: absolute;
-    width: 58px;
-    height: 58px;
+.viagem-aba-btn {
+    background: none;
     border: none;
-    border-radius: 50%;
-    background: white;
-    color: var(--azul);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .18);
+    padding: .9rem 1.2rem;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--cinza-azul);
     cursor: pointer;
-    z-index: 10;
-    transition: .35s;
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s ease;
 }
 
-.carrossel-btn:hover {
-    background: var(--azul);
-    color: white;
-    transform: scale(1.1);
+.viagem-aba-btn:hover {
+    color: var(--azul);
 }
 
-.carrossel-btn i {
-    font-size: 30px;
-}
-
-.anterior {
-    left: -28px;
-}
-
-.proximo {
-    right: -28px;
-}
-
-@media(max-width:992px) {
-    .cardCarrossel {
-        flex: 0 0 calc((100% - 24px) / 2);
-    }
-}
-
-@media(max-width:768px) {
-
-    .cardCarrossel {
-        min-width: 100%;
-    }
-
-    .carrossel-btn {
-        width: 48px;
-        height: 48px;
-    }
-
-    .carrossel-btn i {
-        font-size: 22px;
-    }
-
-    .prev {
-        left: -8px;
-    }
-
-    .next {
-        right: -8px;
-    }
-}
-
-@media(max-width:576px) {
-    .conteudoCard {
-        padding: 18px;
-    }
-
-    .cardCarrossel img {
-        height: 220px;
-    }
-
+.viagem-aba-btn.active {
+    color: var(--azul);
+    border-bottom-color: var(--azul);
 }
