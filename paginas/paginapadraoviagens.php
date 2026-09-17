@@ -10,41 +10,22 @@
     <link rel="stylesheet" type="text/css" href="../css/estilogeral.css">
     <link rel="stylesheet" type="text/css" href="../css/estilopaginapadraoviagens.css">
 
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
+    <?php
+    $base = '../'; //aqui, definimos o caminho até a origem da pasta, isso altera para cada arquivo
 
-    <!-----------------header (igual ao index)---------------->
-    <header>
-        <div class="nav-topo container-margem mx-auto">
-            <a href="#" class="nav-logo">
-                <img src="../imagens/logo-principal.png" alt="logo Asa Azul">
-            </a>
+    if (file_exists('../componentes/header.php')) {
+        include '../componentes/header.php';
+    }
 
-            <button class="menu-toggle btn btn-outline-primary me-2">
-                <i class="bi bi-list"></i>
-            </button>
-
-            <div class="nav-suporte-group" id="navbarNav">
-                <a href="#" class="nav-suporte">
-                    <i class="bi bi-compass me-1"></i> Seja um guia
-                </a>
-                <a href="#" class="nav-suporte">
-                    <i class="bi bi-luggage-fill me-1"></i> Minhas viagens
-                </a>
-                <a href="#" class="nav-suporte">
-                    <i class="bi bi-question-circle me-1"></i> Ajuda
-                </a>
-                <button class="login-btn" data-bs-toggle="modal" data-bs-target="#modalLogin">
-                    <i class="bi bi-person-circle"></i> Login
-                </button>
-            </div>
-        </div>
-
-    </header>
+    if (file_exists('../componentes/modallogin.php')) {
+        include '../componentes/modallogin.php';
+    }
+    ?>
 
     <!------------------main----------------->
     <main>
@@ -75,7 +56,7 @@
                     <span class="viagem-label">Melhor época</span>
                     <span class="viagem-valor">Set a Mar</span>
                 </div>
-                <a href="reserva.html?destino=SDU" class="btn-reservar">
+                <a href="#" class="btn-reservar">
                     Reservar viagem <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
@@ -86,7 +67,7 @@
             <div class="container-margem">
                 <h3>Pronto para conhecer o Rio de Janeiro?</h3>
                 <p>Garanta sua passagem e viva essa experiência cultural completa.</p>
-                <a href="reserva.html?destino=SDU" class="btn-reservar btn-reservar-claro">
+                <a href="#" class="btn-reservar btn-reservar-claro">
                     Reservar agora <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
@@ -161,46 +142,15 @@
 
     </main>
 
-    <!-------------footer (igual ao index)------------>
-    <footer class="container-margem mx-auto">
-        <div id="social">
-            <ul class="list-unstyled d-flex gap-4 p-0 justify-content-center my-3">
-                <li><a href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a></li>
-                <li><a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></li>
-                <li><a href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a></li>
-            </ul>
-        </div>
+    <?php
+    if (file_exists('../componentes/faq.php')){
+        include '../componentes/faq.php';
+    }
 
-        <section class="container-margem d-flex flex-wrap justify-content-between mx-auto px-5 py-3 gap-3" id="conteudo">
-            <div id="alunos">
-                <strong>Alunos<br></strong>
-                <a href="">Miguel Revuelta Mendes<br></a>
-                <a href="">Kayke<br></a>
-                <a href="">Ana Luiza<br></a>
-                <a href="">Isaac<br></a>
-                <a href="">Duda<br></a>
-                <a href="">Professora: Janaína</a>
-            </div>
-
-            <div id="compra-segura">
-                <strong>Compra segura<br></strong>
-                <a href="">Termos e condições<br></a>
-                <a href="">Política de privacidade<br></a>
-                <a href="">Black Friday<br></a>
-            </div>
-
-            <div id="negocios">
-                <strong>Negocie conosco<br></strong>
-                <a href="">Anuncie sua propriedade<br></a>
-                <a href="">Programas de viagens<br></a>
-                <a href="">Divulgue locais culturais</a>
-            </div>
-        </section>
-
-        <section class="container-margem p-2 border-top border-secondary border-1 d-flex justify-content-center" id="direitos">
-            <p class="mb-0 text-secondary">2026 - Todos os direitos reservados</p>
-        </section>
-    </footer>
+    if (file_exists('../componentes/footer.php')){
+        include '../componentes/footer.php';
+    }
+    ?>
 
     <script src="../js/bootstrap.js"></script>
     <script src="../js/jsindex.js"></script>
