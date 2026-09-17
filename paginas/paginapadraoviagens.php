@@ -17,6 +17,7 @@
 <body>
     <?php
     $base = '../'; //aqui, definimos o caminho até a origem da pasta, isso altera para cada arquivo
+    $hideHeader = true;
 
     if (file_exists('../componentes/header.php')) {
         include '../componentes/header.php';
@@ -28,7 +29,7 @@
     ?>
 
     <!------------------main----------------->
-    <main>
+    <main style="margin-top: 100px;">
 
         <!-----Galeria de fotos que abre------->
         <section class="viagem-hero-galeria container-margem pb-3">

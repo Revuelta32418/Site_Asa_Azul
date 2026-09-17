@@ -25,7 +25,7 @@
         </div>
 
 
-        <div class="nav-abas-wrap">
+        <div class="nav-abas-wrap" style="display: <?= $hideHeader === true ? 'none' : '' ?>;">
             <nav class="nav-menu-group container-margem mx-auto">
                 <a class="nav-menu <?= $nav === 'passagens' ? 'active' : '' ?>" href="<?=  $base ?>index.php">
                     <i class="bi bi-airplane-fill"></i> Passagens
