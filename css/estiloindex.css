@@ -2,24 +2,134 @@
 #hero {
     background: linear-gradient(135deg, var(--azul-escuro) 0%, var(--azul) 60%, var(--azul-claro) 100%);
     color: var(--branco);
-    padding: 5rem 0 4rem;
-    text-align: center;
-
 }
 
 #hero h1 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 2.8rem;
-    font-weight: 700;
     margin-bottom: 1rem;
     line-height: 1.2;
 }
 
 #hero p {
-    font-size: 1.1rem;
     opacity: 0.9;
     max-width: 540px;
-    margin: 0 auto 2.5rem;
+}
+
+#hero .caixa {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 1.75rem 2rem;
+    max-width: 1100px;
+}
+
+.caixa p {
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.opcoes {
+    display: grid;
+    grid-template-columns: 1.3fr 1.3fr 1fr 1fr 0.8fr auto;
+    align-items: end;
+}
+
+.opcoes > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    text-align: left;
+}
+
+.opcoes label {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.opcoes input,
+.opcoes select {
+    background: rgba(255, 255, 255, 0.95);
+    color: #1E293B;
+    border: none;
+    border-radius: 8px;
+    padding: 0.62rem 0.8rem;
+    font-size: 0.85rem;
+    font-family: 'Montserrat', sans-serif;
+    height: 42px;
+    width: 100%;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+}
+
+.opcoes input:focus,
+.opcoes select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--azul-claro);
+}
+
+/* ---- Botão de busca ---- */
+.btn-buscar {
+    background: var(--azul);
+    color: var(--azul-escuro);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-buscar:hover {
+    background: var(--azul-claro);
+    transform: translateY(-2px);
+}
+
+/* ---- Ida e volta / Somente ida ---- */
+.tipo-viagem {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.opcao-radio {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.85rem;
+    font-weight: 400;
+    cursor: pointer;
+    margin: 0;
+}
+
+.opcao-radio input[type="radio"] {
+    accent-color: var(--azul);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* ---- Responsivo ---- */
+@media (max-width: 992px) {
+    .opcoes {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .btn-buscar {
+        width: 100%;
+        margin-top: 0.4rem;
+    }
+}
+
+@media (max-width: 576px) {
+    #hero h1 {
+        font-size: 2rem;
+    }
+
+    .opcoes {
+        grid-template-columns: 1fr;
+    }
+
+    #hero .caixa {
+        padding: 1.25rem 1.25rem;
+    }
 }
 
 /*-------galeria fotos expandiveis--------*/

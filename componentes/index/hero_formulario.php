@@ -1,21 +1,15 @@
-<section class="container-margem" id="hero">
-    <h1>Descubra o Brasil<br>que você ainda não conhece</h1>
-    <p>Voos nacionais para destinos famosos e destinos escondidos — tudo em um só lugar.</p>
+<section class="container-margem py-5 text-center" id="hero">
+    <h1 class="fw-bold">Descubra o Brasil<br>que você ainda não conhece</h1>
+    <p class="mx-auto mb-5">Voos nacionais para destinos famosos e destinos escondidos — tudo em um só lugar.</p>
 
-    <div style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25);
-        border-radius:14px; padding:1.75rem 2rem; max-width:800px; margin:0 auto;">
-        <p style="font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:rgba(255,255,255,0.7);
-            font-weight:600; margin-bottom:1rem;">Busca Rápida de Voos</p>
+    <div class="caixa rounded mx-auto">
+        <p class="mx-auto text-center fw-medium text-uppercase">Busca Rápida de Voos</p>
 
-        <form method="GET" action="#">
-            <div
-                style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr auto; gap:0.75rem; align-items:end;">
-
+        <form>
+            <div class="opcoes gap-3">
                 <div>
-                    <label
-                        style="color:rgba(255,255,255,0.85); font-size:0.8rem; font-weight:600;">Origem</label>
-                    <select name="origem"
-                        style="background:rgba(255,255,255,0.95); color:#1E293B; border:none;">
+                    <label>Origem</label>
+                    <select name="origem">
                         <option value="">Selecione a cidade</option>
                         <option value="GRU">São Paulo (GRU)</option>
                         <option value="SDU">Rio de Janeiro (SDU)</option>
@@ -29,10 +23,8 @@
                 </div>
 
                 <div>
-                    <label
-                        style="color:rgba(255,255,255,0.85); font-size:0.8rem; font-weight:600;">Destino</label>
-                    <select name="destino"
-                        style="background:rgba(255,255,255,0.95); color:#1E293B; border:none;">
+                    <label>Destino</label>
+                    <select name="destino">
                         <option value="">Selecione o destino</option>
                         <option value="MAO">Manaus (MAO)</option>
                         <option value="NAT">Natal (NAT)</option>
@@ -47,43 +39,18 @@
                 </div>
 
                 <div>
-                    <label style="color:rgba(255,255,255,0.85); font-size:0.8rem; font-weight:600;">Ida</label>
-                    <input type="date" name="data_ida"
-                        style="background:rgba(255,255,255,0.95); color:#1E293B; border:none;">
+                    <label>Ida</label>
+                    <input type="date" name="data_ida">
                 </div>
 
                 <div>
-                    <label
-                        style="color:rgba(255,255,255,0.85); font-size:0.8rem; font-weight:600;">Volta</label>
-                    <input type="date" name="data_volta"
-                        style="background:rgba(255,255,255,0.95); color:#1E293B; border:none;">
+                    <label>Volta</label>
+                    <input type="date" name="data_volta">
                 </div>
 
                 <div>
-                    <input type="submit" value="Buscar" style="background:#F9A825; color:#0D3B6E; font-weight:700;
-            padding:0.62rem 1.4rem; border-radius:7px; border:none; cursor:pointer; font-size:0.9rem;
-            font-family:'Montserrat',sans-serif; white-space:nowrap;">
-                </div>
-            </div>
-
-            <div style="display:flex; gap:1.5rem; margin-top:1rem; flex-wrap:wrap;">
-                <label
-                    style="display:flex; align-items:center; gap:0.4rem; color:rgba(255,255,255,0.85); font-size:0.85rem; margin:0; font-weight:400; cursor:pointer;">
-                    <input type="radio" name="tipo_viagem" value="ida_volta" checked
-                        style="accent-color:#F9A825; width:16px; height:16px;">
-                    Ida e volta
-                </label>
-                <label
-                    style="display:flex; align-items:center; gap:0.4rem; color:rgba(255,255,255,0.85); font-size:0.85rem; margin:0; font-weight:400; cursor:pointer;">
-                    <input type="radio" name="tipo_viagem" value="so_ida"
-                        style="accent-color:#F9A825; width:16px; height:16px;">
-                    Somente ida
-                </label>
-                <div style="display:flex; align-items:center; gap:0.6rem; margin-left:auto;">
-                    <label
-                        style="color:rgba(255,255,255,0.85); font-size:0.85rem; margin:0; font-weight:400;">Passageiros:</label>
-                    <select name="passageiros"
-                        style="background:rgba(255,255,255,0.95); color:#1E293B; border:none; width:70px; padding:0.35rem 0.5rem;">
+                    <label>Passageiros</label>
+                    <select name="passageiros">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -92,6 +59,21 @@
                         <option>6+</option>
                     </select>
                 </div>
+
+                <div>
+                    <input type="submit" value="Buscar" class="btn-buscar fw-semibold">
+                </div>
+            </div>
+
+            <div class="tipo-viagem">
+                <label class="opcao-radio">
+                    <input type="radio" name="tipo_viagem" value="ida_volta" checked>
+                    Ida e volta
+                </label>
+                <label class="opcao-radio">
+                    <input type="radio" name="tipo_viagem" value="so_ida">
+                    Somente ida
+                </label>
             </div>
         </form>
     </div>

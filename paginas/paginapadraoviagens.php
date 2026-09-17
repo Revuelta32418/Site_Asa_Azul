@@ -65,85 +65,7 @@
         </section>
 
         <section class="detalhes container-margem">
-            <nav class="viagem-abas d-flex justify-content-center mb-4">
-                <button class="viagem-aba-btn active" data-aba="cultura">Cultura</button>
-                <button class="viagem-aba-btn" data-aba="impacto">Impacto local</button>
-                <button class="viagem-aba-btn" data-aba="avaliacoes">Avaliações</button>
-            </nav>
-
-            <div class="cultura secao-detalhes" id="cultura" style="display: block;">
-                <h2 class="titulo">Cultura</h2>
-                <p class="viagem-texto text-center mb-4">
-                    Um poquinho sobre a cultura, a história e as tradições locais.
-                </p>
-
-                <div class="cultura-cards">
-                    <div class="cultura-card">
-                        <img src="../imagens/foto5.jpg" alt="Cristo Redentor">
-                        <div class="cultura-info">
-                            <span class="cultura-tag"><i class="bi bi-bank2"></i> Patrimônio histórico</span>
-                            <h4>Cristo Redentor</h4>
-                            <p>Uma das Sete Maravilhas do Mundo Moderno e símbolo da fé e da cultura carioca.</p>
-                            <span class="cultura-nota"><i class="bi bi-star-fill"></i> 4.9</span>
-                        </div>
-                    </div>
-
-                    <div class="cultura-card">
-                        <img src="../imagens/foto6.jpg" alt="Rodas de samba na Lapa">
-                        <div class="cultura-info">
-                            <span class="cultura-tag"><i class="bi bi-music-note-beamed"></i> Tradição musical</span>
-                            <h4>Rodas de samba na Lapa</h4>
-                            <p>Berço do samba carioca, com bares históricos e música ao vivo todas as noites.</p>
-                            <span class="cultura-nota"><i class="bi bi-star-fill"></i> 4.7</span>
-                        </div>
-                    </div>
-
-                    <div class="cultura-card">
-                        <img src="../imagens/foto7.jpg" alt="Feira de Ipanema">
-                        <div class="cultura-info">
-                            <span class="cultura-tag"><i class="bi bi-palette"></i> Artesanato local</span>
-                            <h4>Feira de Ipanema</h4>
-                            <p>Artesãos locais expõem peças únicas que carregam a identidade da cidade.</p>
-                            <span class="cultura-nota"><i class="bi bi-star-fill"></i> 4.6</span>
-                        </div>
-                    </div>
-
-                    <div class="cultura-card">
-                        <img src="../imagens/foto8.jpg" alt="Culinária carioca">
-                        <div class="cultura-info">
-                            <span class="cultura-tag"><i class="bi bi-cup-hot"></i> Gastronomia</span>
-                            <h4>Culinária carioca</h4>
-                            <p>Da feijoada aos botecos de esquina, sabores que contam a história da cidade.</p>
-                            <span class="cultura-nota"><i class="bi bi-star-fill"></i> 4.8</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="viagem-impacto secao-detalhes" id="impacto" style="display: none;">
-                <h2 class="titulo">Impacto local</h2>
-                <p class="viagem-texto text-center mb-4">
-                    Ao viajar com a Asa Azul, você contribui para o desenvolvimento sustentável da comunidade local.
-                <div class="impacto-card">
-                    <div class="impacto-texto">
-                        <span class="impacto-selo"><i class="bi bi-leaf-fill"></i> Turismo de impacto positivo</span>
-                        <h2>Sua viagem também transforma quem vive aqui</h2>
-                        <p>
-                            Parte da experiência no Rio de Janeiro é conduzida por guias e artesãos locais.
-                            Ao viajar com a Asa Azul, você fortalece a economia da comunidade e ajuda a
-                            preservar tradições que atravessam gerações.
-                        </p>
-                        <ul class="impacto-lista">
-                            <li><i class="bi bi-check-circle-fill"></i> Parceria com artesãos da Feira de Ipanema</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Guias locais especializados em história carioca</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Parte da renda reinvestida em projetos culturais da região</li>
-                        </ul>
-                    </div>
-                    <div class="impacto-imagem">
-                        <img src="../imagens/rio3.jpg" alt="Comunidade local">
-                    </div>
-                </div>
-            </div>
+            
         </section>
 
         <!-- CTA final -->
@@ -166,10 +88,6 @@
     </main>
 
     <?php
-    if (file_exists('../componentes/faq.php')) {
-        include '../componentes/faq.php';
-    }
-
     if (file_exists('../componentes/footer.php')) {
         include '../componentes/footer.php';
     }
