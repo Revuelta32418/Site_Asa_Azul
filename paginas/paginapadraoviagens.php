@@ -33,6 +33,7 @@
 
         <!-----Galeria de fotos que abre------->
         <section class="viagem-hero-galeria container-margem pb-3">
+
             <h1 class="titulo mb-4">Rio de Janeiro</h1>
             <div class="hero-galeria-grid">
                 <img src="../imagens/rio_de_janeiro.jpg">
@@ -65,13 +66,59 @@
 
         <section class="detalhes container-margem">
             <nav class="viagem-abas d-flex justify-content-center mb-4">
-                <button class="viagem-aba-btn active" data-aba="visao-geral">Visão geral</button>
-                <button class="viagem-aba-btn" data-aba="costumes">Costumes do povo</button>
+                <button class="viagem-aba-btn active" data-aba="cultura">Cultura</button>
                 <button class="viagem-aba-btn" data-aba="impacto">Impacto local</button>
                 <button class="viagem-aba-btn" data-aba="avaliacoes">Avaliações</button>
             </nav>
 
+            <div class="cultura">
+                <h2 class="titulo">Cultura</h2>
+                <p class="viagem-texto text-center mb-4">
+                    Um poquinho sobre a cultura, a história e as tradições locais.
+                </p>
 
+                <div class="cultura-cards">
+                    <div class="cultura-card">
+                        <img src="../imagens/foto5.jpg" alt="Cristo Redentor">
+                        <div class="cultura-info">
+                            <span class="cultura-tag"><i class="bi bi-bank2"></i> Patrimônio histórico</span>
+                            <h4>Cristo Redentor</h4>
+                            <p>Uma das Sete Maravilhas do Mundo Moderno e símbolo da fé e da cultura carioca.</p>
+                            <span class="cultura-nota"><i class="bi bi-star-fill"></i> 4.9</span>
+                        </div>
+                    </div>
+
+                    <div class="cultura-card">
+                        <img src="../imagens/foto6.jpg" alt="Rodas de samba na Lapa">
+                        <div class="cultura-info">
+                            <span class="cultura-tag"><i class="bi bi-music-note-beamed"></i> Tradição musical</span>
+                            <h4>Rodas de samba na Lapa</h4>
+                            <p>Berço do samba carioca, com bares históricos e música ao vivo todas as noites.</p>
+                            <span class="cultura-nota"><i class="bi bi-star-fill"></i> 4.7</span>
+                        </div>
+                    </div>
+
+                    <div class="cultura-card">
+                        <img src="../imagens/foto7.jpg" alt="Feira de Ipanema">
+                        <div class="cultura-info">
+                            <span class="cultura-tag"><i class="bi bi-palette"></i> Artesanato local</span>
+                            <h4>Feira de Ipanema</h4>
+                            <p>Artesãos locais expõem peças únicas que carregam a identidade da cidade.</p>
+                            <span class="cultura-nota"><i class="bi bi-star-fill"></i> 4.6</span>
+                        </div>
+                    </div>
+
+                    <div class="cultura-card">
+                        <img src="../imagens/foto8.jpg" alt="Culinária carioca">
+                        <div class="cultura-info">
+                            <span class="cultura-tag"><i class="bi bi-cup-hot"></i> Gastronomia</span>
+                            <h4>Culinária carioca</h4>
+                            <p>Da feijoada aos botecos de esquina, sabores que contam a história da cidade.</p>
+                            <span class="cultura-nota"><i class="bi bi-star-fill"></i> 4.8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- CTA final -->
