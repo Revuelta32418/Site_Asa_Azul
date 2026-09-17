@@ -29,7 +29,7 @@
     ?>
 
     <!------------------main----------------->
-    <main style="margin-top: 100px;">
+    <main style="margin-top: 110px;">
 
         <!-----Galeria de fotos que abre------->
         <section class="viagem-hero-galeria container-margem pb-3">
@@ -71,7 +71,7 @@
                 <button class="viagem-aba-btn" data-aba="avaliacoes">Avaliações</button>
             </nav>
 
-            <div class="cultura">
+            <div class="cultura secao-detalhes" id="cultura" style="display: block;">
                 <h2 class="titulo">Cultura</h2>
                 <p class="viagem-texto text-center mb-4">
                     Um poquinho sobre a cultura, a história e as tradições locais.
@@ -119,6 +119,31 @@
                     </div>
                 </div>
             </div>
+
+            <div class="viagem-impacto secao-detalhes" id="impacto" style="display: none;">
+                <h2 class="titulo">Impacto local</h2>
+                <p class="viagem-texto text-center mb-4">
+                    Ao viajar com a Asa Azul, você contribui para o desenvolvimento sustentável da comunidade local.
+                <div class="impacto-card">
+                    <div class="impacto-texto">
+                        <span class="impacto-selo"><i class="bi bi-leaf-fill"></i> Turismo de impacto positivo</span>
+                        <h2>Sua viagem também transforma quem vive aqui</h2>
+                        <p>
+                            Parte da experiência no Rio de Janeiro é conduzida por guias e artesãos locais.
+                            Ao viajar com a Asa Azul, você fortalece a economia da comunidade e ajuda a
+                            preservar tradições que atravessam gerações.
+                        </p>
+                        <ul class="impacto-lista">
+                            <li><i class="bi bi-check-circle-fill"></i> Parceria com artesãos da Feira de Ipanema</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Guias locais especializados em história carioca</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Parte da renda reinvestida em projetos culturais da região</li>
+                        </ul>
+                    </div>
+                    <div class="impacto-imagem">
+                        <img src="../imagens/rio3.jpg" alt="Comunidade local">
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- CTA final -->
@@ -134,6 +159,7 @@
 
         <?php
         if (file_exists('../componentes/carrossel.php')) {
+            $texto = 'Talvez você também se interesse por:';
             include '../componentes/carrossel.php';
         }
         ?>
@@ -151,7 +177,7 @@
 
     <script src="../js/bootstrap.js"></script>
     <script src="../js/jsgeral.js"></script>
-    <script src="../js/jspaginaspadrao.js"></script>
+    <script src="../js/jspaginapadrao.js"></script>
 </body>
 
 </html>

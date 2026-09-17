@@ -44,6 +44,7 @@
         }
 
         if(file_exists('componentes/carrossel.php')){
+            $texto = 'Viagens clássicas';
             include 'componentes/carrossel.php';
         }
 

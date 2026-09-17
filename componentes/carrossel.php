@@ -1,6 +1,6 @@
 <section id="carrossel-cards" class="container-margem my-5">
             <h2 class="titulo mb-4">
-                Viagens clássicas
+                <?= $texto ?>
             </h2>
 
             <div class="container-carrossel">
