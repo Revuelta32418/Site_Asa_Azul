@@ -1,5 +1,5 @@
 <section id="top" class="container-margem">
-    <h2 class="titulo">Top 4 viagens preferidas da galera</h2>
+    <h2 class="titulo">Top 4 viagens preferidas</h2>
     <div class="galeriaTop">
 
         <div class="cardTop">

@@ -30,9 +30,6 @@
                 <a class="nav-menu <?= $nav === 'passagens' ? 'active' : '' ?>" href="<?=  $base ?>index.php">
                     <i class="bi bi-airplane-fill"></i> Passagens
                 </a>
-                <a class="nav-menu <?= $nav === 'viagens-curtas' ? 'active' : '' ?>" >
-                    <i class="bi bi-car-front"></i> Viagens curtas
-                </a>
                 <a class="nav-menu <?= $nav === 'viagens-digitais' ? 'active' : '' ?>">
                     <i class="bi bi-laptop me-1"></i> Viagens digitais
                 </a>

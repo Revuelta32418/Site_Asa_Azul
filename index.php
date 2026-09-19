@@ -44,12 +44,17 @@
         }
 
         if(file_exists('componentes/carrossel.php')){
-            $texto = 'Viagens clássicas';
+            $texto = 'Viagens mais procuradas';
             include 'componentes/carrossel.php';
         }
 
-        if (file_exists('componentes/faq.php')) {
-            include 'componentes/faq.php';
+        if(file_exists('componentes/carrossel.php')) {
+            $texto = 'Viagens históricas';
+            include 'componentes/carrossel.php';
+        }
+
+        if (file_exists('componentes/index/faq.php')) {
+            include 'componentes/index/faq.php';
         }
         ?>
     </main>

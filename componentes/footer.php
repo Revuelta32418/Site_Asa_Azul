@@ -10,11 +10,13 @@
                 id="conteudo">
                 <div id="alunos">
                     <strong>Alunos<br></strong>
+                    
+                    <a href="">Ana Luiza Araujo Silva<br></a>
+                    <a href="">Eloa Neves da Silva<br></a> 
+                    <a href="">Isaac Henrique Machado<br></a>
+                    <a href="">Kayke Andrade Marino<br></a>
+                    <a href="">Maria Eduarda Martins Fernandes<br></a>
                     <a href="">Miguel Revuelta Mendes<br></a>
-                    <a href="">Kayke<br></a>
-                    <a href="">Ana Luiza<br></a>
-                    <a href="">Isaac<br></a>
-                    <a href="">Duda<br></a>
                     <a href="">Professora: Janaína</a>
                 </div>
 
