@@ -33,17 +33,6 @@ window.addEventListener("scroll", () => {
 
 });
 
-/*--------------modal-------------*/
-const formLogin = document.getElementById("formLogin");
-
-if (formLogin) {
-    formLogin.addEventListener("submit", (e) => {
-        e.preventDefault();
-        // Aqui depois entra a lógica real de autenticação
-        console.log("Tentativa de login enviada");
-    });
-}
-
 /*----- Alternar Login / Cadastro -----*/
 const formCadastro = document.getElementById("formCadastro");
 const linkIrCadastro = document.getElementById("linkIrCadastro");
@@ -82,12 +71,6 @@ if (linkVoltarLogin) {
 // Reseta pro login toda vez que o modal for fechado
 const modalLoginEl = document.getElementById("modalLogin");
 modalLoginEl.addEventListener("hidden.bs.modal", mostrarLogin);
-
-// Envio do cadastro
-formCadastro.addEventListener("submit", (e) => {
-    e.preventDefault();
-    console.log("Tentativa de cadastro enviada");
-});
 
 /*-----carrossel de cards-----*/
 const vagoes = document.querySelector(".carrossel-vagoes");

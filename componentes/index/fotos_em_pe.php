@@ -4,18 +4,30 @@
 
         <div class="cardTop">
             <img src="imagens/foto5.jpg" alt="Viagem em destaque">
+            <div class="hero-foto-overlay">
+                <span>Rio de Janeiro</span>
+            </div>
         </div>
 
         <div class="cardTop">
             <img src="imagens/foto6.jpg" alt="Viagem em destaque">
+            <div class="hero-foto-overlay">
+                <span>Maceió</span>
+            </div>
         </div>
 
         <div class="cardTop">
             <img src="imagens/foto7.jpg" alt="Viagem em destaque">
+            <div class="hero-foto-overlay">
+                <span>Natal</span>
+            </div>
         </div>
 
         <div class="cardTop">
             <img src="imagens/foto8.jpg" alt="Viagem em destaque">
+            <div class="hero-foto-overlay">
+                <span>Fortaleza</span>
+            </div>
         </div>
 
     </div>

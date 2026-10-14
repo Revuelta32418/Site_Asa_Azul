@@ -1,3 +1,9 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -19,13 +25,17 @@
     <?php
     $base = ''; //aqui, definimos o caminho até a origem da pasta, isso altera para cada arquivo
     $nav = "passagens";
-    
+
     if (file_exists('componentes/header.php')) {
         include 'componentes/header.php';
     }
 
     if (file_exists('componentes/modallogin.php')) {
         include 'componentes/modallogin.php';
+    }
+
+    if (file_exists('componentes/toast.php')) {
+        include 'componentes/toast.php';
     }
     ?>
 
@@ -35,21 +45,16 @@
             include 'componentes/index/hero_formulario.php';
         }
 
-        if(file_exists('componentes/index/fotos_expandiveis.php')) {
+        if (file_exists('componentes/index/fotos_expandiveis.php')) {
             include 'componentes/index/fotos_expandiveis.php';
         }
 
-        if(file_exists('componentes/index/fotos_em_pe.php')) {
+        if (file_exists('componentes/index/fotos_em_pe.php')) {
             include 'componentes/index/fotos_em_pe.php';
         }
 
-        if(file_exists('componentes/carrossel.php')){
+        if (file_exists('componentes/carrossel.php')) {
             $texto = 'Viagens mais procuradas';
-            include 'componentes/carrossel.php';
-        }
-
-        if(file_exists('componentes/carrossel.php')) {
-            $texto = 'Viagens históricas';
             include 'componentes/carrossel.php';
         }
 
@@ -65,8 +70,9 @@
     }
     ?>
 
-    <script src="js/bootstrap.js"></script>
+
     <script src="js/jsgeral.js"></script>
+    <script src="js/bootstrap.js"></script>
 </body>
 
 </html>

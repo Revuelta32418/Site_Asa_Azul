@@ -1,3 +1,7 @@
+.pagina-viagem-main {
+    margin-top: 110px;
+}
+
 /*-------hero galeria-------*/
 .hero-galeria-grid {
     display: flex;
@@ -100,5 +104,290 @@
     color: var(--azul-escuro);
 }
 
-/*----------- navegação dos detalhes --------*/
+/* ---- Detalhes da viagem ---- */
+/* -- Turistando -- */
+.cultura-cards {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 4px 20px;
+    justify-content: center;
+}
 
+.cultura-card {
+    flex: 0 0 270px;
+    background: var(--branco);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(13,59,110,.10);
+}
+
+.cultura-card img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+}
+
+.cultura-info {
+    padding: 1rem 1.2rem 1.2rem;
+}
+
+.cultura-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--azul);
+    margin-bottom: .4rem;
+}
+
+.cultura-info h4 {
+    color: var(--azul-escuro);
+    font-weight: 700;
+    margin-bottom: .3rem;
+    font-size: 1.05rem;
+}
+
+.cultura-info p {
+    color: #555;
+    font-size: .85rem;
+    line-height: 1.5;
+    margin-bottom: .6rem;
+}
+
+/* ---- Impacto Local ---- */
+.impacto-card {
+    display: flex;
+    align-items: stretch;
+    background: var(--azul-bem-claro);
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.impacto-texto {
+    flex: 1 1 55%;
+    padding: 2.5rem;
+}
+
+.impacto-selo {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background: rgba(21,101,192,.12);
+    color: var(--azul);
+    font-size: .75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    padding: .4rem .9rem;
+    border-radius: 50px;
+    margin-bottom: 1rem;
+}
+
+.impacto-texto h2 {
+    font-family: var(--fonte1);
+    color: var(--azul-escuro);
+    font-size: 1.7rem;
+    margin-bottom: .8rem;
+}
+
+.impacto-texto > p {
+    color: var(--cinza-azul);
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+}
+
+.impacto-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.impacto-lista li {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    color: var(--azul-escuro);
+    font-weight: 600;
+    font-size: .9rem;
+    margin-bottom: .6rem;
+}
+
+.impacto-lista i {
+    color: #2E7D32;
+}
+
+.impacto-imagem {
+    flex: 1 1 45%;
+}
+
+.impacto-imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ---- Avaliações ---- */
+.avaliacoes-cards {
+    overflow-x: auto;
+}
+
+.avaliacao-card{
+    border: 1px solid #E8EEF3;
+    border-radius: 10px;
+}
+
+.avaliacao-card .bi-person-circle{
+    color: #1565C0;
+}
+
+.avaliacao-header h4{
+    font-size: 18px;
+    margin: auto 0;
+}
+
+.nota {
+    color: #F9A825;
+}
+
+/* =========================================
+   RESPONSIVIDADE
+   ========================================= */
+
+@media (max-width: 992px) {
+
+    /* Galeria hero: reduz altura, imagens continuam lado a lado */
+    .hero-galeria-grid {
+        height: 300px;
+    }
+
+    /* Impacto local: já tinha regra pra 768px, aqui ajustamos o padding mais cedo */
+    .impacto-texto {
+        padding: 1.8rem;
+    }
+
+    /* Avaliações: cards com largura mínima definida (hoje não tinham) */
+    .avaliacao-card {
+        flex: 0 0 260px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .pagina-viagem-main {
+        margin-top: 140px; /* ajuste esse valor conferindo a altura real do header no mobile via DevTools */
+    }
+
+    /* ---- Galeria hero: empilha as 4 fotos em vez de espremer lado a lado ---- */
+    .hero-galeria-grid {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .hero-galeria-grid img {
+        height: 160px;
+        width: 100%;
+    }
+
+    /* Desativa o efeito de "crescer no hover" no mobile (não existe hover em touch, 
+       e empilhado verticalmente o efeito não faz sentido) */
+    .hero-galeria-grid img:hover {
+        flex-grow: 1;
+    }
+
+    .titulo {
+        font-size: 1.6rem;
+    }
+
+    /* ---- Barra de infos: empilha em vez de ficar tudo numa linha só ---- */
+    .viagem-infobar {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        margin-top: -2rem;
+        padding: 1.2rem 1.5rem;
+        gap: 1rem;
+    }
+
+    .btn-reservar {
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* ---- Turistando: cards um pouco menores ---- */
+    .cultura-card {
+        flex: 0 0 220px;
+    }
+
+    .cultura-card img {
+        height: 140px;
+    }
+
+    /* ---- Impacto local: empilha texto em cima da imagem ---- */
+    .impacto-card {
+        flex-direction: column;
+    }
+
+    .impacto-texto {
+        padding: 1.5rem;
+    }
+
+    .impacto-texto h2 {
+        font-size: 1.35rem;
+    }
+
+    .impacto-imagem img {
+        height: 200px;
+    }
+
+    /* ---- Avaliações: cards um pouco mais estreitos ---- */
+    .avaliacao-card {
+        flex: 0 0 240px;
+    }
+
+    .avaliacoes-cards {
+        gap: 12px;
+        justify-content: flex-start !important; /* sobrescreve o justify-content-center do Bootstrap,
+                                                     senão o scroll horizontal fica difícil de usar */
+    }
+
+    /* ---- CTA final: reduz textos e padding ---- */
+    .viagem-cta {
+        padding: 2.5rem 0;
+    }
+
+    .viagem-cta h3 {
+        font-size: 1.4rem;
+    }
+
+    .viagem-cta p {
+        font-size: .9rem;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .hero-galeria-grid img {
+        height: 130px;
+    }
+
+    .cultura-card {
+        flex: 0 0 180px;
+    }
+
+    .avaliacao-card {
+        flex: 0 0 210px;
+        padding: 1rem !important;
+    }
+
+    .avaliacao-header h4 {
+        font-size: 15px;
+    }
+
+    .impacto-lista li {
+        font-size: .82rem;
+    }
+}

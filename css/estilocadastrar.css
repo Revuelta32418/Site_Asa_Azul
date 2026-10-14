@@ -1,0 +1,187 @@
+.pagina-cadastro h1.titulo {
+    margin-bottom: 2.5rem;
+}
+
+.form-cadastro {
+    max-width: 760px;
+    background: var(--branco);
+    box-shadow: 0 15px 40px rgba(10, 51, 98, 0.12);
+}
+
+.bloco-form {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #EEF2F6;
+}
+
+.bloco-form h2 {
+    color: var(--azul-escuro);
+    font-family: var(--fonte1);
+    font-size: 1.3rem;
+    text-align: center;
+    margin-bottom: .3rem;
+}
+
+.form-cadastro label {
+    display: block;
+    color: var(--cinza-azul);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.form-cadastro input[type="text"],
+.form-cadastro input[type="number"],
+.form-cadastro input[type="file"],
+.form-cadastro textarea,
+.form-cadastro select {
+    width: 100%;
+    background: var(--cinza);
+    border: 1.5px solid transparent;
+    border-radius: 10px;
+    padding: .7rem .9rem;
+    font-size: .9rem;
+    font-family: inherit;
+    color: #1E293B;
+    transition: border-color .2s ease, background-color .2s ease;
+}
+
+.form-cadastro textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.campo-grupo {
+    margin-bottom: 1rem;
+}
+
+.linha-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+}
+
+/* ---- Grid das 4 fotos ---- */
+.grid-fotos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.campo-foto {
+    position: relative;
+}
+
+.campo-foto label {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+/* ---- Turistando ---- */
+.grid-turistando {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+}
+
+.card-turistando-form {
+    position: relative;
+    background: var(--cinza);
+    border-radius: 14px;
+    padding: 1.2rem;
+    border: 1.5px solid transparent;
+    transition: border-color .2s ease;
+}
+
+.card-turistando-form:focus-within {
+    border-color: var(--azul);
+    background: var(--branco);
+}
+
+.card-turistando-numero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--azul);
+    color: var(--branco);
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: .9rem;
+}
+
+.card-turistando-form .campo-grupo {
+    margin-bottom: .8rem;
+}
+
+.card-turistando-form .campo-grupo:last-child {
+    margin-bottom: 0;
+}
+
+.textarea-pequena {
+    min-height: 70px !important;
+}
+
+/* ---- Impacto Positivo ---- */
+.topicos input{
+    margin: 5px 0 5px 0;
+    max-width: 250px;
+}
+
+/* ---- Botão de envio ---- */
+.form-cadastro-acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: .8rem;
+    margin-top: 2.5rem;
+}
+
+.form-cadastro .btn-cadastro {
+    background: var(--azul);
+    color: var(--branco);
+    border: none;
+    border-radius: 50px;
+    padding: .75rem 2rem;
+    font-weight: 700;
+    cursor: pointer;
+    align-items: center;
+    gap: .5rem;
+    transition: background-color .2s ease, transform .2s ease;
+}
+
+
+@media (max-width: 768px) {
+    .grid-turistando {
+        grid-template-columns: 1fr;
+    }
+
+    .linha-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-fotos {
+        grid-template-columns: 1fr;
+    }
+
+    .form-cadastro {
+        padding: 1.5rem;
+    }
+
+    .form-cadastro-acoes {
+        flex-direction: column-reverse;
+    }
+
+    .btn-cancelar,
+    .btn-salvar {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .topicos input {
+        max-width: 100%;
+    }
+
+}

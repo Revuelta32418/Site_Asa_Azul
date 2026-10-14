@@ -33,7 +33,7 @@
     align-items: end;
 }
 
-.opcoes > div {
+.opcoes>div {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
@@ -284,4 +284,29 @@ section#top h2 {
 .cardTop:hover {
     transform: scale(1.08) rotate(0deg) !important;
     z-index: 999;
+}
+
+.hero-foto-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.cardTop:hover .hero-foto-overlay {
+    opacity: 1;
+}
+
+.hero-foto-overlay span {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
 }
