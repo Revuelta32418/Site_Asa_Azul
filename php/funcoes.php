@@ -4,6 +4,7 @@ session_start();
 $base = "../";
 require_once($base . "banco/conexao.php");
 require_once($base . "banco/usuariosDAO.php");
+require_once($base . "banco/viagensDAO.php");
 
 // Para onde voltar: a página onde a pessoa estava
 $voltar = $_SERVER['HTTP_REFERER'] ?? ($base . 'index.php');
@@ -61,3 +62,65 @@ if (isset($_POST['login_usuario'])) {
 }
 
 /* --------- Viagens --------- */
+function salvarImagem($campo, $base)
+{
+    if (!isset($_FILES[$campo]) || $_FILES[$campo]['error'] !== UPLOAD_ERR_OK) {
+        return null;
+    }
+    $ext = strtolower(pathinfo($_FILES[$campo]['name'], PATHINFO_EXTENSION));
+    if (!in_array($ext, ['jpg', 'jpeg', 'png', 'webp'])) {
+        throw new Exception("Formato de imagem inválido em $campo.");
+    }
+    $nome = uniqid('img_', true) . '.' . $ext;
+    $destino = $base . 'imagens/viagens/' . $nome;
+    move_uploaded_file($_FILES[$campo]['tmp_name'], $destino);
+    return 'imagens/viagens/' . $nome; // caminho que vai pro banco
+}
+
+if (isset($_POST['cadastrar_viagem'])) {
+    try {
+        $pontos = [];
+        for ($i = 1; $i <= 4; $i++) {
+            $pontos[] = [
+                'foto'      => salvarImagem("ponto{$i}_foto", $base),
+                'categoria' => trim($_POST["ponto{$i}_categoria"] ?? ''),
+                'titulo'    => trim($_POST["ponto{$i}_titulo"] ?? ''),
+                'descricao' => trim($_POST["ponto{$i}_descricao"] ?? ''),
+            ];
+        }
+
+        $viagem = [
+            'nome'             => trim($_POST['nome_viagem']),
+            'fotos'            => [
+                salvarImagem('foto1', $base),
+                salvarImagem('foto2', $base),
+                salvarImagem('foto3', $base),
+                salvarImagem('foto4', $base),
+            ],
+            'preco'            => (float) str_replace(',', '.', $_POST['preco']),
+            'dias_sugeridos'   => trim($_POST['dias_sugeridos']),
+            'melhor_epoca'     => trim($_POST['melhor_epoca']),
+            'descricao'        => trim($_POST['descricao']),
+            'pontos'           => $pontos,
+            'impacto_positivo' => trim($_POST['impacto_positivo']),
+            'impacto_foto'     => salvarImagem('impacto_foto', $base),
+            'impacto_topicos'  => array_filter(array_map('trim', $_POST['impacto_topicos'] ?? [])),
+        ];
+
+        if ($viagem['nome'] === '') {
+            $_SESSION['mensagem'] = "Informe o nome da viagem!";
+            header("Location: " . $voltar);
+            exit();
+        }
+
+        cadastrarViagem($conexao, $viagem);
+        $_SESSION['mensagem'] = "Viagem cadastrada com sucesso!";
+        $_SESSION['mensagem_tipo'] = 'success';
+    } catch (Exception $e) {
+        $_SESSION['mensagem'] = "Erro ao cadastrar a viagem. Tente novamente.";
+    }
+
+    header("Location: " . $voltar);
+    exit();
+}
+?>

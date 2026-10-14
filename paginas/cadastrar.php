@@ -25,7 +25,7 @@
         <section class="container-margem pagina-cadastro">
             <h1 class="titulo">Cadastrar Viagem</h1>
 
-            <form class="form-cadastro mx-auto rounded-4 p-5" method="POST" action="BDviagem.php" enctype="multipart/form-data">
+            <form class="form-cadastro mx-auto rounded-4 p-5" method="POST" action="<?= $base ?>php/funcoes.php" enctype="multipart/form-data">
 
                 <div class="bloco-form">
                     <h2>Nome da viagem</h2>
