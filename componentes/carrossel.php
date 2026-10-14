@@ -1,6 +1,20 @@
+<?php
+if(file_exists($base . "banco/conexao.php")) {
+    require_once($base . "banco/conexao.php");
+}
+
+if (file_exists($base . "banco/viagensDAO.php")) {
+    require_once($base . "banco/viagensDAO.php");
+}
+
+$excluirId = $excluirId ?? 0; // na index essa variável não existe, então vira 0
+$viagensCarrossel = listarViagens($conexao, 10, $excluirId);
+?>
+
+<?php if (!empty($viagensCarrossel)): ?>
 <section id="carrossel-cards" class="container-margem my-5">
     <h2 class="titulo mb-4">
-        <?= $texto ?>
+        <?= htmlspecialchars($texto) ?>
     </h2>
 
     <div class="container-carrossel">
@@ -10,133 +24,33 @@
 
         <div class="carrossel-tunel">
             <div class="carrossel-vagoes">
-                <div class="cardCarrossel">
-                    <div class="cardCarrossel-imagem">
-                        <img src="<?= $base ?>imagens/rio_de_janeiro.jpg" alt="Rio de Janeiro">
-                        <span class="cardCarrossel-preco">
-                            <small>a partir de</small>
-                            R$ 440
-                        </span>
-                    </div>
-                    <div class="conteudoCard">
-                        <div class="cardCarrossel-topo">
-                            <h4>Rio de Janeiro</h4>
-                            <span class="cardCarrossel-nota">
-                                <i class="bi bi-star-fill"></i> 4.9
-                            </span>
-                        </div>
-                        <p>Descubra praias paradisíacas, gastronomia e muita natureza.</p>
-                        <a href="<?= $base ?>paginas/paginapadraoviagens.php" class="btn btn-primary">Ver destino</a>
-                    </div>
-                </div>
 
-                <div class="cardCarrossel">
-                    <div class="cardCarrossel-imagem">
-                        <img src="<?= $base ?>imagens/florianopolis.jpg" alt="Florianópolis">
-                        <span class="cardCarrossel-preco">
-                            <small>a partir de</small>
-                            R$ 650
-                        </span>
-                    </div>
-                    <div class="conteudoCard">
-                        <div class="cardCarrossel-topo">
-                            <h4>Florianópolis</h4>
-                            <span class="cardCarrossel-nota">
-                                <i class="bi bi-star-fill"></i> 4.8
+                <?php foreach ($viagensCarrossel as $v): ?>
+                    <div class="cardCarrossel">
+                        <div class="cardCarrossel-imagem">
+                            <img src="<?= $base . $v['foto1'] ?>" alt="<?= htmlspecialchars($v['nome']) ?>">
+                            <span class="cardCarrossel-preco">
+                                <small>a partir de</small>
+                                R$ <?= number_format($v['preco'], 0, ',', '.') ?>
                             </span>
                         </div>
-                        <p>Descubra praias paradisíacas, gastronomia e muita natureza.</p>
-                        <a href="viagemflorianopolis.html" class="btn btn-primary">Ver destino</a>
-                    </div>
-                </div>
-
-                <div class="cardCarrossel">
-                    <div class="cardCarrossel-imagem">
-                        <img src="<?= $base ?>imagens/porto-seguro.png" alt="Porto Seguro">
-                        <span class="cardCarrossel-preco">
-                            <small>a partir de</small>
-                            R$ 720
-                        </span>
-                    </div>
-                    <div class="conteudoCard">
-                        <div class="cardCarrossel-topo">
-                            <h4>Porto Seguro</h4>
-                            <span class="cardCarrossel-nota">
-                                <i class="bi bi-star-fill"></i> 4.6
-                            </span>
+                        <div class="conteudoCard">
+                            <div class="cardCarrossel-topo">
+                                <h4><?= htmlspecialchars($v['nome']) ?></h4>
+                            </div>
+                            <p><?= htmlspecialchars(mb_strimwidth($v['descricao'], 0, 110, '...')) ?></p>
+                            <a href="<?= $base ?>paginas/paginapadraoviagens.php?viagem=<?= urlencode($v['slug']) ?>"
+                                class="btn btn-primary">Ver destino</a>
                         </div>
-                        <p>História, cultura e praias incríveis para toda a família.</p>
-                        <a href="viagemportoseguro.html" class="btn btn-primary">Ver destino</a>
                     </div>
-                </div>
-
-                <div class="cardCarrossel">
-                    <div class="cardCarrossel-imagem">
-                        <img src="<?= $base ?>imagens/maceio.jpg" alt="Maceió">
-                        <span class="cardCarrossel-preco">
-                            <small>a partir de</small>
-                            R$ 590
-                        </span>
-                    </div>
-                    <div class="conteudoCard">
-                        <div class="cardCarrossel-topo">
-                            <h4>Maceió</h4>
-                            <span class="cardCarrossel-nota">
-                                <i class="bi bi-star-fill"></i> 4.9
-                            </span>
-                        </div>
-                        <p>Piscinas naturais, mar cristalino e paisagens inesquecíveis.</p>
-                        <a href="viagemmaceio.html" class="btn btn-primary">Ver destino</a>
-                    </div>
-                </div>
-
-                <div class="cardCarrossel">
-                    <div class="cardCarrossel-imagem">
-                        <img src="<?= $base ?>imagens/porto-seguro.png" alt="Porto Seguro">
-                        <span class="cardCarrossel-preco">
-                            <small>a partir de</small>
-                            R$ 450
-                        </span>
-                    </div>
-                    <div class="conteudoCard">
-                        <div class="cardCarrossel-topo">
-                            <h4>Porto Seguro</h4>
-                            <span class="cardCarrossel-nota">
-                                <i class="bi bi-star-fill"></i> 4.9
-                            </span>
-                        </div>
-                        <p>Piscinas naturais, mar cristalino e paisagens inesquecíveis.</p>
-                        <a href="viagemmaceio.html" class="btn btn-primary">Ver destino</a>
-                    </div>
-                </div>
-
-                <div class="cardCarrossel">
-                    <div class="cardCarrossel-imagem">
-                        <img src="<?= $base ?>imagens/saoluisma.jpg" alt="São Luis">
-                        <span class="cardCarrossel-preco">
-                            <small>a partir de</small>
-                            R$ 650
-                        </span>
-                    </div>
-                    <div class="conteudoCard">
-                        <div class="cardCarrossel-topo">
-                            <h4>São Luis</h4>
-                            <span class="cardCarrossel-nota">
-                                <i class="bi bi-star-fill"></i> 4.0
-                            </span>
-                        </div>
-                        <p>Piscinas naturais, mar cristalino e paisagens inesquecíveis.</p>
-                        <a href="viagemmaceio.html" class="btn btn-primary">Ver destino</a>
-                    </div>
-                </div>
+                <?php endforeach; ?>
 
             </div>
-
         </div>
 
         <button class="carrossel-btn proximo">
             <i class="bi bi-chevron-right"></i>
         </button>
-
     </div>
 </section>
+<?php endif; ?>

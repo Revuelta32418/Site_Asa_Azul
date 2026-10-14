@@ -93,34 +93,36 @@ nav a,
     color: var(--azul);
 }
 
-.caixa-usuario{
+.caixa-usuario {
     background-color: var(--azul);
     box-shadow: 0 2px 5px rgba(21, 101, 192, 0.05);
 }
 
-.usuario-avatar{
+.usuario-avatar {
     background-color: var(--branco);
     color: var(--azul);
     width: 26px;
     height: 26px;
 }
 
-.usuario-nome{
+.usuario-nome {
     font-size: 13px;
     font-weight: 600;
     color: var(--branco);
 }
 
-.btn-logout{
+.btn-logout {
+    border: 0;
+    background: transparent;
     transition: color 0.2s ease;
 }
 
-.btn-logout i{
+.btn-logout i {
     font-size: 15px;
     color: var(--branco);
 }
 
-.btn-logout i:hover{
+.btn-logout i:hover {
     color: #d32f2f;
 }
 
@@ -428,7 +430,6 @@ main {
 }
 
 /*----------carrossel-------*/
-/*-----carrossel de cards-----*/
 #carrossel-cards {
     position: relative;
 }

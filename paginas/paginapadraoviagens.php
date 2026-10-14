@@ -2,6 +2,32 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+$base = '../'; //aqui, definimos o caminho até a origem da pasta, isso altera para cada arquivo
+require_once($base . "banco/viagensDAO.php");
+require_once($base . "banco/conexao.php");
+
+$slug = $_GET['viagem'] ?? '';
+$id = $_GET['id'] ?? '';
+
+if($slug) {
+    $viagem = buscarViagemPorSlug($conexao, $slug);
+} elseif($id) {
+    $viagem = buscarViagemPorId($conexao, $id);
+} else{
+    $viagem = buscarViagemPorId($conexao, 1); // caso não tenha slug nem id, mostra a viagem de id 1
+}
+
+if (!$viagem) {
+    $_SESSION['mensagem'] = "Viagem não encontrada.";
+    header("Location: " . $base . "index.php");
+    exit();
+}
+
+$hideHeader = true;
+$excluirId = $viagem['id']; // para o carrossel não sugerir a própria viagem
+
+
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +36,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asa Azul | Rio de Janeiro</title>
+    <title>Asa Azul | <?=  htmlspecialchars($viagem['nome']) ?></title>
     <link rel="shortcut icon" href="../imagens/arara_com_circulo.png">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../css/estilopaginapadraoviagens.css">
@@ -22,15 +48,16 @@ if (session_status() === PHP_SESSION_NONE) {
 
 <body>
     <?php
-    $base = '../'; //aqui, definimos o caminho até a origem da pasta, isso altera para cada arquivo
-    $hideHeader = true;
-
     if (file_exists('../componentes/header.php')) {
         include '../componentes/header.php';
     }
 
     if (file_exists('../componentes/modallogin.php')) {
         include '../componentes/modallogin.php';
+    }
+    
+    if(file_exists('../componentes/toast.php')) {
+        include '../componentes/toast.php';
     }
     ?>
 
@@ -40,12 +67,12 @@ if (session_status() === PHP_SESSION_NONE) {
         <!-----Galeria de fotos que abre------->
         <section class="viagem-hero-galeria container-margem pb-3">
 
-            <h1 class="titulo mb-4">Rio de Janeiro</h1>
+            <h1 class="titulo mb-4"><?php echo $viagem['nome']; ?></h1>
             <div class="hero-galeria-grid">
-                <img src="../imagens/rio_de_janeiro.jpg">
-                <img src="../imagens/rio1.jpg">
-                <img src="../imagens/rio2.jpg">
-                <img src="../imagens/rio3.jpg">
+                <img src="<?php echo $base . $viagem['foto1']; ?>" alt="Foto 1 da viagem">
+                <img src="<?php echo $base . $viagem['foto2']; ?>" alt="Foto 2 da viagem">
+                <img src="<?php echo $base . $viagem['foto3']; ?>" alt="Foto 3 da viagem">
+                <img src="<?php echo $base . $viagem['foto4']; ?>" alt="Foto 4 da viagem">
             </div>
         </section>
 
@@ -54,15 +81,15 @@ if (session_status() === PHP_SESSION_NONE) {
             <div class="viagem-infobar">
                 <div>
                     <span class="viagem-label">A partir de</span>
-                    <span class="viagem-valor">R$ 890</span>
+                    <span class="viagem-valor"><?= $viagem['preco'] ?></span>
                 </div>
                 <div>
                     <span class="viagem-label">Duração sugerida</span>
-                    <span class="viagem-valor">4 dias</span>
+                    <span class="viagem-valor"><?= $viagem['dias_sugeridos'] ?></span>
                 </div>
                 <div>
                     <span class="viagem-label">Melhor época</span>
-                    <span class="viagem-valor">Set a Mar</span>
+                    <span class="viagem-valor"><?= $viagem['melhor_epoca'] ?></span>
                 </div>
                 <a href="#" class="btn-reservar">
                     Reservar viagem <i class="bi bi-arrow-right"></i>
@@ -73,46 +100,27 @@ if (session_status() === PHP_SESSION_NONE) {
         <section class="detalhes container-margem">
             <div class="descricao px-5">
                 <h2 class="titulo">Descrição</h2>
-                <p class="text-center">O Rio de Janeiro é uma cidade vibrante e cheia de vida, conhecida por suas praias deslumbrantes, paisagens icônicas e cultura rica. Com uma mistura única de natureza e urbanismo, o Rio oferece experiências inesquecíveis para todos os tipos de viajantes.</p>
+                <p class="text-center"><?= $viagem['descricao'] ?></p>
             </div>
             <div class="turistando my-5">
                 <h2 class="titulo">Turistando</h2>
-                <div class="cultura-cards">
-                    <div class="cultura-card">
-                        <img src="../imagens/cristo.jpg" alt="Cristo Redentor">
-                        <div class="cultura-info">
-                            <span class="cultura-tag"><i class="bi bi-bank2"></i> Patrimônio histórico</span>
-                            <h4>Cristo Redentor</h4>
-                            <p>Uma das Sete Maravilhas do Mundo Moderno e símbolo da fé e da cultura carioca.</p>
-                        </div>
-                    </div>
+                <div class="cultura-cards"><?php if (!empty($viagem['pontos'])): ?>
+                        <?php foreach ($viagem['pontos'] as $ponto): ?>
+                            <div class="cultura-card">
+                                <img src="<?= $base . $ponto['foto'] ?>" alt="<?= htmlspecialchars($ponto['titulo']) ?>">
 
-                    <div class="cultura-card">
-                        <img src="../imagens/samba.jpg" alt="Rodas de samba na Lapa">
-                        <div class="cultura-info">
-                            <span class="cultura-tag"><i class="bi bi-music-note-beamed"></i> Tradição musical</span>
-                            <h4>Rodas de samba na Lapa</h4>
-                            <p>Berço do samba carioca, com bares históricos e música ao vivo todas as noites.</p>
-                        </div>
-                    </div>
+                                <div class="cultura-info">
+                                    <span class="cultura-tag">
+                                        <i class="bi bi-bank2"></i> <?= htmlspecialchars($ponto['categoria']) ?>
+                                    </span>
 
-                    <div class="cultura-card">
-                        <img src="../imagens/feira.jpg" alt="Feira de Ipanema">
-                        <div class="cultura-info">
-                            <span class="cultura-tag"><i class="bi bi-palette"></i> Artesanato local</span>
-                            <h4>Feira de Ipanema</h4>
-                            <p>Artesãos locais expõem peças únicas que carregam a identidade da cidade.</p>
-                        </div>
-                    </div>
+                                    <h4><?= htmlspecialchars($ponto['titulo']) ?></h4>
 
-                    <div class="cultura-card">
-                        <img src="../imagens/culinaria.jpg" alt="Culinária carioca">
-                        <div class="cultura-info">
-                            <span class="cultura-tag"><i class="bi bi-cup-hot"></i> Gastronomia</span>
-                            <h4>Culinária carioca</h4>
-                            <p>Da feijoada aos botecos de esquina, sabores que contam a história da cidade.</p>
-                        </div>
-                    </div>
+                                    <p><?= htmlspecialchars($ponto['descricao']) ?></p>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="impacto">
@@ -122,18 +130,18 @@ if (session_status() === PHP_SESSION_NONE) {
                             <span class="impacto-selo"><i class="bi bi-leaf-fill"></i> Turismo de impacto positivo</span>
                             <h2>Sua viagem também transforma quem vive aqui</h2>
                             <p>
-                                Parte da experiência no Rio de Janeiro é conduzida por guias e artesãos locais.
-                                Ao viajar com a Asa Azul, você fortalece a economia da comunidade e ajuda a
-                                preservar tradições que atravessam gerações.
+                                <?= $viagem['impacto_positivo'] ?>
                             </p>
                             <ul class="impacto-lista">
-                                <li><i class="bi bi-check-circle-fill"></i> Parceria com artesãos da Feira de Ipanema</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Guias locais especializados em história carioca</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Parte da renda reinvestida em projetos culturais da região</li>
+                                <?php if (!empty($viagem['impacto_topicos'])): ?>
+                                    <?php foreach ($viagem['impacto_topicos'] as $topico): ?>
+                                        <li><i class="bi bi-check-circle-fill"></i> <?= htmlspecialchars($topico) ?></li>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </ul>
                         </div>
                         <div class="impacto-imagem">
-                            <img src="../imagens/rio3.jpg" alt="Comunidade local">
+                            <img src="<?= $base . $viagem['impacto_foto'] ?>" alt="Imagem de impacto positivo">
                         </div>
                     </div>
                 </div>
@@ -193,7 +201,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <!-- CTA final -->
         <section class="viagem-cta">
             <div class="container-margem">
-                <h3>Pronto para conhecer o Rio de Janeiro?</h3>
+                <h3>Pronto para conhecer <?= $viagem['nome'] ?>?</h3>
                 <p>Garanta sua passagem e viva essa experiência cultural completa.</p>
                 <a href="#" class="btn-reservar btn-reservar-claro">
                     Reservar agora <i class="bi bi-arrow-right"></i>

@@ -28,9 +28,12 @@ if (isset($_POST['cadastrar_usuario'])) {
 
     try {
         if (cadastrarUsuario($conexao, $nome, $email, $senhaHash)) {
+            $_SESSION['usuario_id'] = mysqli_insert_id($conexao);
+            $_SESSION['usuario_nome'] = $nome;
             $_SESSION['mensagem'] = "Usuário cadastrado com sucesso!";
             $_SESSION['mensagem_tipo'] = 'success';
             unset($_SESSION['abrir_modal']);
+
         }
     } catch (mysqli_sql_exception $e) {
         $_SESSION['mensagem'] = "Erro ao cadastrar. Tente novamente.";
@@ -61,6 +64,13 @@ if (isset($_POST['login_usuario'])) {
     exit();
 }
 
+if (isset($_POST['logout'])) {
+    session_unset();
+    session_destroy();
+    header("Location: " . $voltar);
+    exit();
+}
+
 /* --------- Viagens --------- */
 function salvarImagem($campo, $base)
 {
@@ -79,6 +89,7 @@ function salvarImagem($campo, $base)
 
 if (isset($_POST['cadastrar_viagem'])) {
     try {
+
         $pontos = [];
         for ($i = 1; $i <= 4; $i++) {
             $pontos[] = [
@@ -89,8 +100,17 @@ if (isset($_POST['cadastrar_viagem'])) {
             ];
         }
 
+        $topicosForm = [
+            $_POST['topico1'] ?? '',
+            $_POST['topico2'] ?? '',
+            $_POST['topico3'] ?? '',
+            $_POST['topico4'] ?? ''
+        ];
+
         $viagem = [
             'nome'             => trim($_POST['nome_viagem']),
+            'criado_por'       => $_SESSION['usuario_nome'] ?? null,
+            'slug'             => gerarSlug($_POST['nome_viagem']),
             'fotos'            => [
                 salvarImagem('foto1', $base),
                 salvarImagem('foto2', $base),
@@ -104,7 +124,7 @@ if (isset($_POST['cadastrar_viagem'])) {
             'pontos'           => $pontos,
             'impacto_positivo' => trim($_POST['impacto_positivo']),
             'impacto_foto'     => salvarImagem('impacto_foto', $base),
-            'impacto_topicos'  => array_filter(array_map('trim', $_POST['impacto_topicos'] ?? [])),
+            'impacto_topicos'  => array_filter(array_map('trim', $topicosForm)),
         ];
 
         if ($viagem['nome'] === '') {
@@ -123,4 +143,3 @@ if (isset($_POST['cadastrar_viagem'])) {
     header("Location: " . $voltar);
     exit();
 }
-?>

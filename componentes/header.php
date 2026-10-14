@@ -26,9 +26,13 @@
                     <span class="usuario-nome">
                         <?= htmlspecialchars(explode(' ', $_SESSION['usuario_nome'])[0]) ?>
                     </span>
-                    <a href="<?= $base ?>php/logout.php" class="btn-logout d-flex align-items-center justify-content-center small ms-1 text-decoration-none" title="Sair">
-                        <i class="bi bi-box-arrow-right"></i>
-                    </a>
+                    <form action="<?= $base ?>php/funcoes.php" method="POST" class="d-inline">
+                        <button type="submit" name="logout"
+                            class="btn-logout d-flex align-items-center justify-content-center small ms-1"
+                            title="Sair">
+                            <i class="bi bi-box-arrow-right"></i>
+                        </button>
+                    </form>
                 </div>
             <?php else: ?>
                 <button class="login-btn rounded-pill p-2 text-nowrap border-0 text-white d-flex gap-2" data-bs-toggle="modal" data-bs-target="#modalLogin">

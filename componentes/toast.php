@@ -15,3 +15,26 @@ unset($_SESSION['mensagem'], $_SESSION['mensagem_tipo'], $_SESSION['abrir_modal'
         </div>
     </div>
 </div>
+
+<?php if ($msg): ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // mostra o toast
+        bootstrap.Toast.getOrCreateInstance(
+            document.getElementById('toastAviso'), { delay: 4000 }
+        ).show();
+
+        <?php if ($abrirModal): ?>
+        // reabre o modal (login ou cadastro)
+        var modalEl = document.getElementById('modalLogin');
+        if (modalEl) {
+            bootstrap.Modal.getOrCreateInstance(modalEl).show();
+            <?php if ($abrirModal === 'cadastro'): ?>
+            var link = document.getElementById('linkIrCadastro');
+            if (link) link.click();
+            <?php endif; ?>
+        }
+        <?php endif; ?>
+    });
+</script>
+<?php endif; ?>
