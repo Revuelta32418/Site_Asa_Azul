@@ -10,11 +10,11 @@ require_once($base . "banco/conexao.php");
 $slug = $_GET['viagem'] ?? '';
 $id = $_GET['id'] ?? '';
 
-if($slug) {
+if ($slug) {
     $viagem = buscarViagemPorSlug($conexao, $slug);
-} elseif($id) {
+} elseif ($id) {
     $viagem = buscarViagemPorId($conexao, $id);
-} else{
+} else {
     $viagem = buscarViagemPorId($conexao, 1); // caso não tenha slug nem id, mostra a viagem de id 1
 }
 
@@ -36,7 +36,7 @@ $excluirId = $viagem['id']; // para o carrossel não sugerir a própria viagem
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asa Azul | <?=  htmlspecialchars($viagem['nome']) ?></title>
+    <title>Asa Azul | <?= htmlspecialchars($viagem['nome']) ?></title>
     <link rel="shortcut icon" href="../imagens/arara_com_circulo.png">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../css/estilopaginapadraoviagens.css">
@@ -55,9 +55,13 @@ $excluirId = $viagem['id']; // para o carrossel não sugerir a própria viagem
     if (file_exists('../componentes/modallogin.php')) {
         include '../componentes/modallogin.php';
     }
-    
-    if(file_exists('../componentes/toast.php')) {
+
+    if (file_exists('../componentes/toast.php')) {
         include '../componentes/toast.php';
+    }
+
+    if (file_exists('../componentes/modalreservar.php')) {
+        include '../componentes/modalreservar.php';
     }
     ?>
 
@@ -91,9 +95,9 @@ $excluirId = $viagem['id']; // para o carrossel não sugerir a própria viagem
                     <span class="viagem-label">Melhor época</span>
                     <span class="viagem-valor"><?= $viagem['melhor_epoca'] ?></span>
                 </div>
-                <a href="#" class="btn-reservar">
-                    Reservar viagem <i class="bi bi-arrow-right"></i>
-                </a>
+                <button type="button" class="btn btn-reservar" data-bs-toggle="modal" data-bs-target="#modalReservar">
+                    Reservar Agora
+                </button>
             </div>
         </section>
 
@@ -203,9 +207,9 @@ $excluirId = $viagem['id']; // para o carrossel não sugerir a própria viagem
             <div class="container-margem">
                 <h3>Pronto para conhecer <?= $viagem['nome'] ?>?</h3>
                 <p>Garanta sua passagem e viva essa experiência cultural completa.</p>
-                <a href="#" class="btn-reservar btn-reservar-claro">
-                    Reservar agora <i class="bi bi-arrow-right"></i>
-                </a>
+                <button type="button" class="btn-reservar btn-reservar-claro" data-bs-toggle="modal" data-bs-target="#modalReservar">
+                    Reservar Agora
+                </button>
             </div>
         </section>
 

@@ -1,3 +1,9 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -5,6 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asa Azul | Cadastrar Viagem</title>
+    <link rel="shortcut icon" href="../imagens/arara_com_circulo.png">
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/estilogeral.css">
     <link rel="stylesheet" href="../css/estilocadastrar.css">
@@ -18,6 +25,11 @@
     if (file_exists('../componentes/header.php')) {
         $hideHeader = true;
         include '../componentes/header.php';
+    }
+
+    if (file_exists('../componentes/toast.php')) {
+        $hideHeader = true;
+        include '../componentes/toast.php';
     }
     ?>
 

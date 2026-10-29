@@ -3,6 +3,7 @@ function cadastrarUsuario($conexao, $nome, $email, $senha)
 {
     $sqlCheck = "SELECT id FROM usuarios WHERE email=?";
     $stmtCheck = mysqli_prepare($conexao, $sqlCheck);
+    $tipo = "cliente";
 
     if ($stmtCheck) {
         mysqli_stmt_bind_param($stmtCheck, "s", $email);
@@ -20,7 +21,7 @@ function cadastrarUsuario($conexao, $nome, $email, $senha)
     mysqli_stmt_close($stmtCheck);
 
 
-    $sql = "INSERT INTO usuarios (nome, email, senha) values (?,?,?)";
+    $sql = "INSERT INTO usuarios (nome, tipo, email, senha) values (?,?,?,?)";
 
     $stmt = mysqli_prepare($conexao, $sql);
 
@@ -32,10 +33,11 @@ function cadastrarUsuario($conexao, $nome, $email, $senha)
 
     mysqli_stmt_bind_param(
         $stmt,
-        "sss",
+        "ssss",
         $nome,
+        $tipo,
         $email,
-        $senha,
+        $senha
     );
 
     if (mysqli_stmt_execute($stmt)) {
@@ -69,4 +71,44 @@ function buscarUsuarioPorEmail($conexao, $email)
     }
 
     return null;
+}
+
+function listarUsuarios($conexao, $limite = 10, $excluirId = 0){
+    $sql = "SELECT id, nome, tipo, email FROM usuarios WHERE id <> ? ORDER BY id DESC LIMIT ?";
+
+    $stmt = mysqli_prepare($conexao, $sql);
+    if (!$stmt) {
+        return [];
+    }
+
+    mysqli_stmt_bind_param($stmt, "ii", $excluirId, $limite);
+    mysqli_stmt_execute($stmt);
+    $resultado = mysqli_stmt_get_result($stmt);
+    $lista = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+    mysqli_stmt_close($stmt);
+
+    return $lista;
+}
+
+function atualizarUsuario($conexao, $id, $nome, $email, $tipo, $senhaHash = null)
+{
+    if ($senhaHash !== null) {
+        $stmt = mysqli_prepare($conexao,
+            "UPDATE usuarios SET nome = ?, email = ?, tipo = ?, senha = ? WHERE id = ?");
+        mysqli_stmt_bind_param($stmt, "ssssi", $nome, $email, $tipo, $senhaHash, $id);
+    } else {
+        $stmt = mysqli_prepare($conexao,
+            "UPDATE usuarios SET nome = ?, email = ?, tipo = ? WHERE id = ?");
+        mysqli_stmt_bind_param($stmt, "sssi", $nome, $email, $tipo, $id);
+    }
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+}
+
+function excluirUsuario($conexao, $id)
+{
+    $stmt = mysqli_prepare($conexao, "DELETE FROM usuarios WHERE id = ?");
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
 }

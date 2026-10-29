@@ -1,0 +1,133 @@
+.admin-dashboard {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+}
+
+.admin-card-kpi {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid #EEF2F6;
+    box-shadow: 0 4px 12px rgba(13, 59, 110, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.admin-card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background-color: var(--azul-bem-claro);
+    color: var(--azul);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.admin-kpi-info h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--azul-escuro);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.admin-kpi-info p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--cinza-azul);
+}
+
+.admin-nav-tabs {
+    border-bottom: 2px solid #E0E0E0;
+    gap: 1rem;
+}
+
+.admin-nav-tabs .nav-link {
+    border: none;
+    color: var(--cinza-azul);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 50px;
+    transition: all 0.25s ease;
+}
+
+.admin-nav-tabs .nav-link.active {
+    background-color: var(--azul);
+    color: var(--branco);
+    box-shadow: 0 4px 12px rgba(21, 101, 192, 0.25);
+}
+
+.admin-table-card {
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #EEF2F6;
+    box-shadow: 0 6px 18px rgba(13, 59, 110, 0.06);
+    padding: 1.75rem;
+}
+
+.table> :not(caption)>*>* {
+    padding: 1rem 0.85rem;
+    vertical-align: middle;
+}
+
+.badge-status {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 50px;
+    font-weight: 600;
+}
+
+.badge-pendente {
+    background-color: #FFF3CD;
+    color: #856404;
+}
+
+.badge-aprovado {
+    background-color: #D4EDDA;
+    color: #155724;
+}
+
+.badge-tipo {
+    background-color: var(--azul-bem-claro);
+    color: var(--azul-escuro);
+}
+
+.btn-acao {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    border: none;
+    transition: transform 0.2s ease;
+}
+
+.btn-acao:hover {
+    transform: scale(1.1);
+}
+
+.btn-criar-viagem {
+    background-color: var(--azul);
+    color: var(--branco);
+    border-radius: 50px;
+    padding: 0.6rem 1.4rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.25s ease;
+}
+
+.btn-criar-viagem:hover {
+    background-color: var(--azul-escuro);
+    color: var(--branco);
+}

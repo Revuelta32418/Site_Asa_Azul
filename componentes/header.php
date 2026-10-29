@@ -9,15 +9,19 @@
         </button>
 
         <div class="nav-suporte-group" id="navbarNav">
-            <a href="<?= $base ?>paginas/admin.php" class="nav-suporte">
-                <i class="bi bi-compass me-1"></i> Seja um guia
-            </a>
-            <a href="#" class="nav-suporte">
-                <i class="bi bi-luggage-fill me-1"></i> Minhas viagens
-            </a>
-            <a href="#" class="nav-suporte">
-                <i class="bi bi-question-circle me-1"></i> Ajuda
-            </a>
+            <?php if (isset($_SESSION['usuario_tipo']) && $_SESSION['usuario_tipo'] === 'administrador'): ?>
+                <a href="<?= $base ?>paginas/admin.php" class="nav-suporte">
+                    <i class="bi bi-gear me-1"></i> Central de administração
+                </a>
+            <?php else: ?>
+                <a href="#" class="nav-suporte">
+                    <i class="bi bi-compass me-1"></i> Seja um guia
+                </a>
+                <a href="#" class="nav-suporte">
+                    <i class="bi bi-luggage-fill me-1"></i> Minhas viagens
+                </a>
+
+            <?php endif; ?>
             <?php if (isset($_SESSION['usuario_nome'])): ?>
                 <div class="caixa-usuario d-flex align-items-center gap-2 p-2 rounded-pill ms-1">
                     <div class="usuario-avatar rounded-circle d-flex align-items-center justify-content-center small fw-bold">

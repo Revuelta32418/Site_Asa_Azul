@@ -3,7 +3,7 @@
     <div class="galeriaTop">
 
         <div class="cardTop">
-            <img src="imagens/foto5.jpg" alt="Viagem em destaque">
+            <img src="imagens/rio_de_janeiro.jpg" alt="Viagem em destaque">
             <div class="hero-foto-overlay">
                 <span>Rio de Janeiro</span>
             </div>

@@ -1,10 +1,5 @@
 
         <footer class="container-margem mx-auto">
-            <div id="social">
-                <ul class="list-unstyled d-flex gap-4 p-0 justify-content-center my-3">
-                    <li><a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></li>
-                </ul>
-            </div>
 
             <section class="container-margem  d-flex flex-wrap justify-content-between mx-auto px-5 py-3 gap-3"
                 id="conteudo">
@@ -28,10 +23,9 @@
                 </div>
 
                 <div id="negocios">
-                    <strong>Negocie conosco<br></strong>
-                    <a href="">Anuncie sua propriedade<br></a>
-                    <a href="">Programas de viagens<br></a>
-                    <a href="">Divulgue locais culturais</a>
+                    <strong>Entre em contato<br></strong>
+                    <a href="https://www.instagram.com/">Instagram<br></a>
+                    <a>(35) 98765 4321</a>
                 </div>
             </section>
 

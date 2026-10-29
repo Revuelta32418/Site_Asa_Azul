@@ -102,7 +102,8 @@ function buscarViagemPorId($conexao, $id)
     return $viagem;
 }
 
-function buscarViagemPorSlug($conexao, $slug){
+function buscarViagemPorSlug($conexao, $slug)
+{
     $sql = "SELECT * FROM viagens WHERE slug=?";
     $stmt = mysqli_prepare($conexao, $sql);
     mysqli_stmt_bind_param($stmt, "s", $slug);
@@ -144,7 +145,7 @@ function buscarViagemPorSlug($conexao, $slug){
 
 function listarViagens($conexao, $limite = 10, $excluirId = 0)
 {
-    $sql = "SELECT id, nome, slug, foto1, preco, descricao FROM viagens WHERE id <> ? ORDER BY id DESC LIMIT ?";
+    $sql = "SELECT id, nome, slug, criado_por, foto1, preco, dias_sugeridos, descricao FROM viagens WHERE id <> ? ORDER BY id DESC LIMIT ?";
 
     $stmt = mysqli_prepare($conexao, $sql);
     if (!$stmt) {
@@ -189,4 +190,106 @@ function gerarSlug($texto) //é o nome da viagem, mas de forma amigável para UR
         'ç' => 'c',
     ]);
     return trim(preg_replace('/[^a-z0-9]+/', '-', $texto), '-');
+}
+
+function atualizarViagem($conexao, array $v)
+{
+    mysqli_begin_transaction($conexao);
+
+    try {
+        // 1) dados principais (o slug não muda, para os links antigos continuarem funcionando)
+        $sql = "UPDATE viagens SET
+                    nome = ?, foto1 = ?, foto2 = ?, foto3 = ?, foto4 = ?,
+                    preco = ?, dias_sugeridos = ?, melhor_epoca = ?,
+                    descricao = ?, impacto_positivo = ?, impacto_foto = ?
+                WHERE id = ?";
+        $stmt = mysqli_prepare($conexao, $sql);
+        mysqli_stmt_bind_param(
+            $stmt,
+            "sssssdsssssi",
+            $v['nome'],
+            $v['fotos'][0],
+            $v['fotos'][1],
+            $v['fotos'][2],
+            $v['fotos'][3],
+            $v['preco'],
+            $v['dias_sugeridos'],
+            $v['melhor_epoca'],
+            $v['descricao'],
+            $v['impacto_positivo'],
+            $v['impacto_foto'],
+            $v['id']
+        );
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+        // 2) pontos culturais: apaga os antigos e grava os novos
+        $stmt = mysqli_prepare($conexao, "DELETE FROM pontos_culturais WHERE viagem_id = ?");
+        mysqli_stmt_bind_param($stmt, "i", $v['id']);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+        $stmt = mysqli_prepare(
+            $conexao,
+            "INSERT INTO pontos_culturais (viagem_id, ordem, foto, categoria, titulo, descricao)
+             VALUES (?, ?, ?, ?, ?, ?)"
+        );
+        foreach ($v['pontos'] as $i => $p) {
+            $ordem = $i + 1;
+            mysqli_stmt_bind_param(
+                $stmt,
+                "iissss",
+                $v['id'],
+                $ordem,
+                $p['foto'],
+                $p['categoria'],
+                $p['titulo'],
+                $p['descricao']
+            );
+            mysqli_stmt_execute($stmt);
+        }
+        mysqli_stmt_close($stmt);
+
+        // 3) tópicos de impacto: mesma ideia
+        $stmt = mysqli_prepare($conexao, "DELETE FROM impacto_topicos WHERE viagem_id = ?");
+        mysqli_stmt_bind_param($stmt, "i", $v['id']);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+        $stmt = mysqli_prepare($conexao, "INSERT INTO impacto_topicos (viagem_id, topico) VALUES (?, ?)");
+        foreach ($v['impacto_topicos'] as $topico) {
+            mysqli_stmt_bind_param($stmt, "is", $v['id'], $topico);
+            mysqli_stmt_execute($stmt);
+        }
+        mysqli_stmt_close($stmt);
+
+        mysqli_commit($conexao);
+    } catch (Exception $e) {
+        mysqli_rollback($conexao);
+        throw $e;
+    }
+}
+
+function excluirViagem($conexao, $id)
+{
+    mysqli_begin_transaction($conexao);
+
+    try {
+        foreach (['pontos_culturais', 'impacto_topicos'] as $tabela) {
+            $stmt = mysqli_prepare($conexao, "DELETE FROM $tabela WHERE viagem_id = ?");
+            mysqli_stmt_bind_param($stmt, "i", $id);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        }
+
+        $stmt = mysqli_prepare($conexao, "DELETE FROM viagens WHERE id = ?");
+        mysqli_stmt_bind_param($stmt, "i", $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+        mysqli_commit($conexao);
+    } catch (Exception $e) {
+        mysqli_rollback($conexao);
+        throw $e;
+    }
 }
