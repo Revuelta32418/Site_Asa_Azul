@@ -5,9 +5,28 @@ $base = "../";
 require_once($base . "banco/conexao.php");
 require_once($base . "banco/usuariosDAO.php");
 require_once($base . "banco/viagensDAO.php");
+require_once($base . "banco/guiasDAO.php");
 
 // Para onde voltar: a página onde a pessoa estava
 $voltar = $_SERVER['HTTP_REFERER'] ?? ($base . 'index.php');
+
+function exigirAdmin($voltar)
+{
+    if (($_SESSION['usuario_tipo'] ?? '') !== 'administrador') {
+        $_SESSION['mensagem'] = "Acesso restrito a administradores.";
+        header("Location: " . $voltar);
+        exit();
+    }
+}
+
+function exigirAdminOuGuia($voltar)
+{
+    if (!in_array($_SESSION['usuario_tipo'] ?? '', ['administrador', 'guia'])) {
+        $_SESSION['mensagem'] = "Você não tem permissão para acessar esta página.";
+        header("Location: " . $voltar);
+        exit();
+    }
+}
 
 /* --------- Usuários --------- */
 if (isset($_POST['cadastrar_usuario'])) {
@@ -30,6 +49,7 @@ if (isset($_POST['cadastrar_usuario'])) {
         if (cadastrarUsuario($conexao, $nome, $email, $senhaHash)) {
             $_SESSION['usuario_id'] = mysqli_insert_id($conexao);
             $_SESSION['usuario_nome'] = $nome;
+            $_SESSION['usuario_tipo'] = 'cliente';
             $_SESSION['mensagem'] = "Usuário cadastrado com sucesso!";
             $_SESSION['mensagem_tipo'] = 'success';
             unset($_SESSION['abrir_modal']);
@@ -45,7 +65,6 @@ if (isset($_POST['cadastrar_usuario'])) {
 if (isset($_POST['login_usuario'])) {
     $email = trim($_POST['loginEmail']);
     $senha = $_POST['loginSenha'];
-
 
     $usuario = buscarUsuarioPorEmail($conexao, $email);
 
@@ -73,12 +92,13 @@ if (isset($_POST['logout'])) {
 }
 
 if (isset($_POST['editar_usuario'])) {
+    exigirAdmin($voltar);
 
     $id    = (int) $_POST['usuario_id'];
     $nome  = trim($_POST['editNome']);
     $email = trim($_POST['editEmail']);
-    $tipo  = $_POST['editTipo'];
-    $senha = $_POST['editSenha'];
+    $tipo  = $_POST['editTipo'] ?? 'cliente';
+    $senha = $_POST['editSenha'] ?? '';
 
     if (!in_array($tipo, ['cliente', 'guia', 'administrador'])) {
         $tipo = 'cliente';
@@ -99,10 +119,10 @@ if (isset($_POST['editar_usuario'])) {
 }
 
 if (isset($_POST['excluir_usuario'])) {
+    exigirAdmin($voltar);
 
     $id = (int) $_POST['usuario_id'];
 
-    // proteção no servidor: o botão escondido não basta
     if ($id === (int) ($_SESSION['usuario_id'] ?? 0)) {
         $_SESSION['mensagem'] = "Você não pode excluir a sua própria conta.";
         header("Location: " . $voltar);
@@ -134,11 +154,16 @@ function salvarImagem($campo, $base)
     $nome = uniqid('img_', true) . '.' . $ext;
     $destino = $base . 'imagens/viagens/' . $nome;
     move_uploaded_file($_FILES[$campo]['tmp_name'], $destino);
-    return 'imagens/viagens/' . $nome; // caminho que vai pro banco
+    return 'imagens/viagens/' . $nome;
 }
 
 if (isset($_POST['cadastrar_viagem'])) {
+    exigirAdminOuGuia($voltar);
+
     try {
+        $usuarioTipo  = $_SESSION['usuario_tipo'] ?? 'cliente';
+        // Se for Guia fica 'pendente', se for Administrador vai direto para 'aprovado'
+        $statusViagem = ($usuarioTipo === 'guia') ? 'pendente' : 'aprovado';
 
         $pontos = [];
         for ($i = 1; $i <= 4; $i++) {
@@ -159,8 +184,10 @@ if (isset($_POST['cadastrar_viagem'])) {
 
         $viagem = [
             'nome'             => trim($_POST['nome_viagem']),
-            'criado_por'       => $_SESSION['usuario_nome'] ?? null,
+            'criado_por'       => $_SESSION['usuario_nome'] ?? 'Guia',
+            'usuario_id'       => $_SESSION['usuario_id'] ?? null,
             'slug'             => gerarSlug($_POST['nome_viagem']),
+            'status'           => $statusViagem,
             'fotos'            => [
                 salvarImagem('foto1', $base),
                 salvarImagem('foto2', $base),
@@ -172,7 +199,7 @@ if (isset($_POST['cadastrar_viagem'])) {
             'melhor_epoca'     => trim($_POST['melhor_epoca']),
             'descricao'        => trim($_POST['descricao']),
             'pontos'           => $pontos,
-            'impacto_positivo' => trim($_POST['impacto_positivo']),
+            'impacto_positivo' => trim($_POST['impacto_positivo'] ?? ''),
             'impacto_foto'     => salvarImagem('impacto_foto', $base),
             'impacto_topicos'  => array_filter(array_map('trim', $topicosForm)),
         ];
@@ -184,23 +211,31 @@ if (isset($_POST['cadastrar_viagem'])) {
         }
 
         cadastrarViagem($conexao, $viagem);
-        $_SESSION['mensagem'] = "Viagem cadastrada com sucesso!";
-        $_SESSION['mensagem_tipo'] = 'success';
-    } catch (Exception $e) {
-        $_SESSION['mensagem'] = "Erro ao cadastrar a viagem. Tente novamente.";
-    }
 
-    header("Location: " . $voltar);
-    exit();
+        if ($usuarioTipo === 'guia') {
+            $_SESSION['mensagem'] = "Roteiro enviado para aprovação do administrador!";
+            $_SESSION['mensagem_tipo'] = 'success';
+            header("Location: " . $base . "paginas/minhasviagens.php");
+        } else {
+            $_SESSION['mensagem'] = "Viagem cadastrada com sucesso!";
+            $_SESSION['mensagem_tipo'] = 'success';
+            header("Location: " . $base . "paginas/admin.php");
+        }
+        exit();
+    } catch (Exception $e) {
+        $_SESSION['mensagem'] = "Erro ao cadastrar a viagem.";
+        header("Location: " . $voltar);
+        exit();
+    }
 }
 
 if (isset($_POST['atualizar_viagem'])) {
+    exigirAdmin($voltar);
+
     try {
         $id = (int) $_POST['viagem_id'];
         $viagemAntiga = buscarViagemPorId($conexao, $id);
 
-        // Se enviou foto nova, salva e usa o caminho novo.
-        // Se não enviou, mantém a foto que já estava cadastrada.
         $manterFoto = function ($campo, $fotoAntiga) use ($base) {
             if (isset($_FILES[$campo]) && $_FILES[$campo]['error'] === UPLOAD_ERR_OK) {
                 return salvarImagem($campo, $base);
@@ -230,10 +265,10 @@ if (isset($_POST['atualizar_viagem'])) {
             'id'               => $id,
             'nome'             => trim($_POST['nome_viagem']),
             'fotos'            => [
-                $manterFoto('foto1', $viagemAntiga['foto1'] ?? ''),
-                $manterFoto('foto2', $viagemAntiga['foto2'] ?? ''),
-                $manterFoto('foto3', $viagemAntiga['foto3'] ?? ''),
-                $manterFoto('foto4', $viagemAntiga['foto4'] ?? ''),
+                $manterFoto('foto1', $viagemAntiga['foto1'] ?? ($viagemAntiga['fotos'][0] ?? '')),
+                $manterFoto('foto2', $viagemAntiga['foto2'] ?? ($viagemAntiga['fotos'][1] ?? '')),
+                $manterFoto('foto3', $viagemAntiga['foto3'] ?? ($viagemAntiga['fotos'][2] ?? '')),
+                $manterFoto('foto4', $viagemAntiga['foto4'] ?? ($viagemAntiga['fotos'][3] ?? '')),
             ],
             'preco'            => (float) str_replace(',', '.', $_POST['preco']),
             'dias_sugeridos'   => trim($_POST['dias_sugeridos']),
@@ -257,6 +292,7 @@ if (isset($_POST['atualizar_viagem'])) {
 }
 
 if (isset($_POST['excluir_viagem'])) {
+    exigirAdmin($voltar);
 
     try {
         $id = (int) $_POST['viagem_id'];
@@ -264,11 +300,12 @@ if (isset($_POST['excluir_viagem'])) {
 
         excluirViagem($conexao, $id);
 
-        // só apaga os arquivos depois que o banco confirmou a exclusão
         if ($v) {
-            $caminhos = [$v['foto1'], $v['foto2'], $v['foto3'], $v['foto4'], $v['impacto_foto']];
-            foreach ($v['pontos'] as $p) {
-                $caminhos[] = $p['foto'];
+            $caminhos = [$v['foto1'] ?? '', $v['foto2'] ?? '', $v['foto3'] ?? '', $v['foto4'] ?? '', $v['impacto_foto'] ?? ''];
+            if (!empty($v['pontos'])) {
+                foreach ($v['pontos'] as $p) {
+                    $caminhos[] = $p['foto'] ?? '';
+                }
             }
             foreach ($caminhos as $c) {
                 if (!empty($c) && file_exists($base . $c)) {
@@ -288,10 +325,8 @@ if (isset($_POST['excluir_viagem'])) {
 }
 
 /* ------------- Reservas ----------- */
-
 require_once(__DIR__ . "/../banco/reservasDAO.php");
 
-// Lógica de Processamento de Reserva
 if (isset($_POST['confirmar_reserva'])) {
     $viagemId = (int)($_POST['viagem_id'] ?? 0);
     $voltar = $_SERVER['HTTP_REFERER'] ?? ($base . 'index.php');
@@ -324,6 +359,150 @@ if (isset($_POST['confirmar_reserva'])) {
         $_SESSION['mensagem_tipo'] = 'success';
     } else {
         $_SESSION['mensagem'] = "Erro ao registrar reserva. Tente novamente.";
+        $_SESSION['mensagem_tipo'] = 'danger';
+    }
+
+    header("Location: " . $voltar);
+    exit();
+}
+
+/*-------------- guia ---------------*/
+if (isset($_POST['enviar_pedido_guia'])) {
+    $usuarioId = (int) ($_SESSION['usuario_id'] ?? 0);
+
+    if ($usuarioId === 0) {
+        $_SESSION['mensagem'] = "Entre na sua conta para pedir para ser guia.";
+        $_SESSION['abrir_modal'] = 'login';
+        header("Location: " . $voltar);
+        exit();
+    }
+
+    if (($_SESSION['usuario_tipo'] ?? 'cliente') !== 'cliente') {
+        $_SESSION['mensagem'] = "Sua conta já tem acesso de guia ou administrador.";
+        $_SESSION['mensagem_tipo'] = 'warning';
+        header("Location: " . $voltar);
+        exit();
+    }
+
+    if (buscarPedidoPendente($conexao, $usuarioId)) {
+        $_SESSION['mensagem'] = "Você já tem um pedido em análise. Aguarde a resposta.";
+        $_SESSION['mensagem_tipo'] = 'warning';
+        header("Location: " . $voltar);
+        exit();
+    }
+
+    $dados = [
+        'telefone'      => trim($_POST['guiaTelefone'] ?? ''),
+        'regiao'        => trim($_POST['guiaRegiao'] ?? ''),
+        'especialidade' => trim($_POST['guiaEspecialidade'] ?? ''),
+        'experiencia'   => trim($_POST['guiaExperiencia'] ?? ''),
+    ];
+
+    if ($dados['regiao'] === '' || $dados['especialidade'] === '' || $dados['experiencia'] === '') {
+        $_SESSION['mensagem'] = "Preencha todos os campos do pedido.";
+        header("Location: " . $voltar);
+        exit();
+    }
+
+    try {
+        criarPedidoGuia($conexao, $usuarioId, $dados);
+        $_SESSION['mensagem'] = "Pedido enviado! Em breve nossa equipe vai analisar.";
+        $_SESSION['mensagem_tipo'] = 'success';
+    } catch (mysqli_sql_exception $e) {
+        $_SESSION['mensagem'] = "Erro ao enviar o pedido. Tente novamente.";
+    }
+
+    header("Location: " . $voltar);
+    exit();
+}
+
+if (isset($_POST['aprovar_pedido_guia'])) {
+    exigirAdmin($voltar);
+
+    $pedidoId = (int) ($_POST['pedido_id'] ?? 0);
+
+    if ($pedidoId > 0 && aprovarPedidoGuia($conexao, $pedidoId)) {
+        $_SESSION['mensagem'] = "Pedido aprovado! O usuário agora é um guia.";
+        $_SESSION['mensagem_tipo'] = 'success';
+    } else {
+        $_SESSION['mensagem'] = "Não foi possível aprovar. O pedido pode já ter sido respondido.";
+        $_SESSION['mensagem_tipo'] = 'danger';
+    }
+
+    header("Location: " . $voltar);
+    exit();
+}
+
+if (isset($_POST['recusar_pedido_guia'])) {
+    exigirAdmin($voltar);
+
+    $pedidoId = (int) ($_POST['pedido_id'] ?? 0);
+
+    if ($pedidoId > 0 && recusarPedidoGuia($conexao, $pedidoId)) {
+        $_SESSION['mensagem'] = "Pedido recusado.";
+        $_SESSION['mensagem_tipo'] = 'success';
+    } else {
+        $_SESSION['mensagem'] = "Não foi possível recusar. O pedido pode já ter sido respondido.";
+        $_SESSION['mensagem_tipo'] = 'danger';
+    }
+
+    header("Location: " . $voltar);
+    exit();
+}
+
+if (isset($_POST['aprovar_roteiro'])) {
+    exigirAdmin($voltar);
+
+    $viagemId = (int) ($_POST['viagem_id'] ?? 0);
+
+    try {
+        if ($viagemId > 0 && aprovarRoteiroViagem($conexao, $viagemId)) {
+            $_SESSION['mensagem'] = "Roteiro aprovado e publicado com sucesso!";
+            $_SESSION['mensagem_tipo'] = 'success';
+        } else {
+            $_SESSION['mensagem'] = "Erro ao aprovar roteiro.";
+            $_SESSION['mensagem_tipo'] = 'danger';
+        }
+    } catch (Exception $e) {
+        $_SESSION['mensagem'] = "Erro ao aprovar roteiro.";
+        $_SESSION['mensagem_tipo'] = 'danger';
+    }
+
+    header("Location: " . $voltar);
+    exit();
+}
+
+if (isset($_POST['recusar_roteiro'])) {
+    exigirAdmin($voltar);
+
+    $viagemId = (int) ($_POST['viagem_id'] ?? 0);
+
+    try {
+        if ($viagemId <= 0) {
+            throw new Exception("Id inválido.");
+        }
+
+        $v = buscarViagemPorId($conexao, $viagemId);
+        excluirViagem($conexao, $viagemId);
+
+        if ($v) {
+            $caminhos = [$v['foto1'] ?? '', $v['foto2'] ?? '', $v['foto3'] ?? '', $v['foto4'] ?? '', $v['impacto_foto'] ?? ''];
+            if (!empty($v['pontos'])) {
+                foreach ($v['pontos'] as $p) {
+                    $caminhos[] = $p['foto'] ?? '';
+                }
+            }
+            foreach ($caminhos as $c) {
+                if (!empty($c) && file_exists($base . $c)) {
+                    unlink($base . $c);
+                }
+            }
+        }
+
+        $_SESSION['mensagem'] = "Roteiro recusado e removido.";
+        $_SESSION['mensagem_tipo'] = 'success';
+    } catch (Exception $e) {
+        $_SESSION['mensagem'] = "Erro ao recusar roteiro.";
         $_SESSION['mensagem_tipo'] = 'danger';
     }
 

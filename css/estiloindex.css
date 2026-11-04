@@ -156,6 +156,8 @@
     border: 1px solid rgba(255, 255, 255, .35);
     box-shadow: 0 20px 40px rgba(0, 0, 0, .35);
     transition: .6s ease;
+    display: block; 
+    text-decoration: none; 
 }
 
 .cardGaleria img {
@@ -229,6 +231,8 @@ section#top h2 {
     transition: .7s ease;
     cursor: pointer;
     box-shadow: 0 15px 35px rgba(0, 0, 0, .45);
+    display: block;
+    text-decoration: none;
 }
 
 .cardTop img {

@@ -364,7 +364,7 @@ nav a,
 
 /*-----------------------Main---------------------*/
 main {
-    margin-top: 130px;
+    margin-top: 80px;
 }
 
 /*-----FAQ-----*/
@@ -688,7 +688,19 @@ passar do limite, o site esconde ele(ou a metade dele)*/
     }
 }
 
-/* -----footer-----*/
+footer .seja-guia {
+    font-size: 14px;
+    color: var(--cinza-azul);
+    font-weight: 600;
+    text-decoration: none;
+    border: 0;
+    background: transparent;
+}
+
+footer .seja-guia:hover {
+    color: #bcc3c3;
+}
+
 footer div#social i {
     color: var(--cinza-azul);
     font-size: 25px;

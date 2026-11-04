@@ -2,6 +2,19 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+$base = '../';
+require_once($base . "banco/conexao.php");
+
+// Permite o acesso tanto para 'administrador' quanto para 'guia'
+if (!isset($_SESSION['usuario_tipo']) || !in_array($_SESSION['usuario_tipo'], ['administrador', 'guia'])) {
+    header("Location: " . $base . "index.php");
+    exit();
+}
+
+$ehGuia = ($_SESSION['usuario_tipo'] === 'guia');
+$tituloForm = $ehGuia ? "Sugerir Novo Roteiro" : "Cadastrar Nova Viagem";
+$textoBotao = $ehGuia ? "Enviar Roteiro para Aprovação" : "Cadastrar Viagem";
 ?>
 
 <!DOCTYPE html>
@@ -252,7 +265,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                 <div class="form-cadastro-acoes">
                     <button type="submit" class="btn-cadastro" name="cadastrar_viagem">
-                        Cadastrar viagem
+                        <i class="bi bi-send-fill"></i> <?= $textoBotao ?>
                     </button>
                 </div>
             </form>

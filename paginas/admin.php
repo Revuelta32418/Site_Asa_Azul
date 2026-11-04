@@ -7,6 +7,7 @@ $base = '../';
 require_once($base . "banco/conexao.php");
 require_once($base . "banco/viagensDAO.php");
 require_once($base . "banco/usuariosDAO.php");
+require_once($base . "banco/guiasDAO.php");
 
 // Proteção da página: Apenas administradores podem acessar
 if (!isset($_SESSION['usuario_tipo']) || $_SESSION['usuario_tipo'] !== 'administrador') {
@@ -17,6 +18,8 @@ if (!isset($_SESSION['usuario_tipo']) || $_SESSION['usuario_tipo'] !== 'administ
 $hideHeader = true;
 $viagens = listarViagens($conexao);
 $usuarios = listarUsuarios($conexao);
+$pedidosGuia = listarPedidosGuia($conexao);
+$roteirosPendentes = listarRoteirosPendentes($conexao);
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +85,7 @@ $usuarios = listarUsuarios($conexao);
                             <i class="bi bi-person-badge-fill"></i>
                         </div>
                         <div class="admin-kpi-info">
-                            <h3>2</h3>
+                            <h3><?= count($pedidosGuia) ?></h3>
                             <p>Pedidos para Guia</p>
                         </div>
                     </div>
@@ -94,7 +97,7 @@ $usuarios = listarUsuarios($conexao);
                             <i class="bi bi-map-fill"></i>
                         </div>
                         <div class="admin-kpi-info">
-                            <h3>1</h3>
+                            <h3><?= count($roteirosPendentes) ?></h3>
                             <p>Viagens Pendentes</p>
                         </div>
                     </div>
@@ -117,17 +120,17 @@ $usuarios = listarUsuarios($conexao);
             <ul class="nav admin-nav-tabs mb-4" id="adminTabs" role="tablist">
                 <li class="nav-item">
                     <button class="nav-link active" id="viagens-tab" data-bs-toggle="tab" data-bs-target="#tab-viagens" type="button">
-                        <i class="bi bi-airplane-fill me-1"></i> Viagens
+                        <i class="bi bi-airplane-fill me-1"></i> Viagens Ativas
                     </button>
                 </li>
                 <li class="nav-item">
                     <button class="nav-link" id="pedidos-guias-tab" data-bs-toggle="tab" data-bs-target="#tab-pedidos-guias" type="button">
-                        <i class="bi bi-person-check-fill me-1"></i> Pedidos para Guia <span class="badge bg-danger ms-1">2</span>
+                        <i class="bi bi-person-check-fill me-1"></i> Pedidos para Guia <span class="badge bg-danger ms-1"><?= count($pedidosGuia) ?></span>
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" id="viagens-pendentes-tab" data-bs-toggle="tab" data-bs-target="#tab-viagens-pendentes" type="button">
-                        <i class="bi bi-journal-text me-1"></i> Viagensn pendentes <span class="badge bg-warning text-dark ms-1">1</span>
+                    <button class="nav-link" id="roteiros-tab" data-bs-toggle="tab" data-bs-target="#tab-roteiros" type="button">
+                        <i class="bi bi-journal-text me-1"></i> Viagens Pendentes <span class="badge bg-warning text-dark ms-1"><?= count($roteirosPendentes) ?></span>
                     </button>
                 </li>
                 <li class="nav-item">
@@ -140,7 +143,7 @@ $usuarios = listarUsuarios($conexao);
             <!-- Conteúdo das Abas -->
             <div class="tab-content" id="adminTabsContent">
 
-                <!-- Aba 1: Viagens -->
+                <!-- Aba 1: Viagens Ativas -->
                 <div class="tab-pane fade show active" id="tab-viagens">
                     <div class="admin-table-card">
                         <div class="table-responsive">
@@ -212,34 +215,52 @@ $usuarios = listarUsuarios($conexao);
                                 <thead>
                                     <tr>
                                         <th>Solicitante</th>
-                                        <th>E-mail</th>
+                                        <th>Telefone</th>
                                         <th>Especialidade / Região</th>
+                                        <th>Experiência</th>
                                         <th>Status</th>
                                         <th class="text-end">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><strong>Carlos Eduardo</strong></td>
-                                        <td>carlos.guia@email.com</td>
-                                        <td>História & Cultura (Salvador - BA)</td>
-                                        <td><span class="badge-status badge-pendente">Pendente</span></td>
-                                        <td class="text-end">
-                                            <button class="btn btn-sm btn-success rounded-pill px-3 me-1">
-                                                <i class="bi bi-check-lg"></i> Aprovar
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-danger rounded-pill px-3">
-                                                Recusar
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    <?php if (!empty($pedidosGuia)): ?>
+                                        <?php foreach ($pedidosGuia as $pg): ?>
+                                            <tr>
+                                                <td>
+                                                    <strong><?= htmlspecialchars($pg['nome']) ?></strong><br>
+                                                    <small class="text-muted"><?= htmlspecialchars($pg['email']) ?></small>
+                                                </td>
+                                                <td><?= htmlspecialchars($pg['telefone']) ?></td>
+                                                <td><?= htmlspecialchars($pg['especialidade']) ?> (<?= htmlspecialchars($pg['regiao']) ?>)</td>
+                                                <td><small><?= htmlspecialchars($pg['experiencia']) ?></small></td>
+                                                <td><span class="badge-status badge-pendente"><?= ucfirst(htmlspecialchars($pg['status'])) ?></span></td>
+                                                <td class="text-end">
+                                                    <form action="<?= $base ?>php/funcoes.php" method="POST" class="d-inline">
+                                                        <input type="hidden" name="pedido_id" value="<?= $pg['id'] ?>">
+                                                        <button type="submit" name="aprovar_pedido_guia" class="btn btn-sm btn-success rounded-pill px-3 me-1">
+                                                            <i class="bi bi-check-lg"></i> Aprovar
+                                                        </button>
+                                                        <button type="submit" name="recusar_pedido_guia" class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                                                            Recusar
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="6" class="text-center py-4 text-muted">
+                                                Nenhum pedido de guia pendente.
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
-                <!-- Aba 3: Aprovação de Roteiros de Guias -->
+                <!-- Aba 3: Aprovação de Viagens Pendentes de Guias -->
                 <div class="tab-pane fade" id="tab-roteiros">
                     <div class="admin-table-card">
                         <div class="table-responsive">
@@ -248,26 +269,37 @@ $usuarios = listarUsuarios($conexao);
                                     <tr>
                                         <th>Título do Roteiro</th>
                                         <th>Guia Autor</th>
-                                        <th>Destino</th>
+                                        <th>Preço</th>
                                         <th>Status</th>
                                         <th class="text-end">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><strong>Trilha Cultural do Pelourinho</strong></td>
-                                        <td>Carlos Eduardo</td>
-                                        <td>Salvador - BA</td>
-                                        <td><span class="badge-status badge-pendente">Aguardando Revisão</span></td>
-                                        <td class="text-end">
-                                            <button class="btn btn-sm btn-primary rounded-pill px-3 me-1">
-                                                <i class="bi bi-search"></i> Revisar
-                                            </button>
-                                            <button class="btn btn-sm btn-success rounded-pill px-3">
-                                                Aprovar
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    <?php if (!empty($roteirosPendentes)): ?>
+                                        <?php foreach ($roteirosPendentes as $r): ?>
+                                            <tr>
+                                                <td><strong><?= htmlspecialchars($r['nome']) ?></strong></td>
+                                                <td><?= htmlspecialchars($r['criado_por'] ?? 'Guia') ?></td>
+                                                <td>R$ <?= number_format($r['preco'], 2, ',', '.') ?></td>
+                                                <td><span class="badge-status badge-pendente">Aguardando Revisão</span></td>
+                                                <td class="text-end">
+                                                    <form action="<?= $base ?>php/funcoes.php" method="POST" class="d-inline">
+                                                        <input type="hidden" name="viagem_id" value="<?= $r['id'] ?>">
+                                                        <button type="submit" name="aprovar_roteiro" class="btn btn-sm btn-success rounded-pill px-3">
+                                                            <i class="bi bi-check-lg"></i> Aprovar
+                                                        </button>
+                                                        <button type="submit" name="recusar_roteiro" class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="return confirm('Recusar este roteiro?');">
+                                                            Recusar
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="5" class="text-center py-4 text-muted">Nenhum roteiro pendente de aprovação.</td>
+                                        </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -345,7 +377,7 @@ $usuarios = listarUsuarios($conexao);
     <script src="../js/jsgeral.js"></script>
     <script>
         document.getElementById('modalEditarUsuario').addEventListener('show.bs.modal', function(event) {
-            const botao = event.relatedTarget; // o botão que foi clicado
+            const botao = event.relatedTarget;
             document.getElementById('editId').value = botao.dataset.id;
             document.getElementById('editNome').value = botao.dataset.nome;
             document.getElementById('editEmail').value = botao.dataset.email;

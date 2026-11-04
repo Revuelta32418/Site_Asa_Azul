@@ -10,18 +10,30 @@
 
         <div class="nav-suporte-group" id="navbarNav">
             <?php if (isset($_SESSION['usuario_tipo']) && $_SESSION['usuario_tipo'] === 'administrador'): ?>
+                <a href="<?= $base ?>paginas/minhasviagens.php" class="nav-suporte">
+                    <i class="bi bi-luggage-fill me-1"></i> Minhas viagens
+                </a>
                 <a href="<?= $base ?>paginas/admin.php" class="nav-suporte">
                     <i class="bi bi-gear me-1"></i> Central de administração
                 </a>
+
+            <?php elseif (isset($_SESSION['usuario_tipo']) && $_SESSION['usuario_tipo'] === 'guia'): ?>
+                <a href="<?= $base ?>paginas/minhasviagens.php" class="nav-suporte">
+                    <i class="bi bi-luggage-fill me-1"></i> Minhas viagens
+                </a>
+                <a href="<?= $base ?>paginas/cadastrar.php" class="nav-suporte">
+                    <i class="bi bi-journal-plus me-1"></i> Criar roteiro
+                </a>
+
             <?php else: ?>
                 <a href="#" class="nav-suporte">
                     <i class="bi bi-compass me-1"></i> Seja um guia
                 </a>
-                <a href="#" class="nav-suporte">
+                <a href="<?= $base ?>paginas/minhasviagens.php" class="nav-suporte">
                     <i class="bi bi-luggage-fill me-1"></i> Minhas viagens
                 </a>
-
             <?php endif; ?>
+
             <?php if (isset($_SESSION['usuario_nome'])): ?>
                 <div class="caixa-usuario d-flex align-items-center gap-2 p-2 rounded-pill ms-1">
                     <div class="usuario-avatar rounded-circle d-flex align-items-center justify-content-center small fw-bold">
@@ -44,20 +56,5 @@
                 </button>
             <?php endif; ?>
         </div>
-    </div>
-
-
-    <div class="nav-abas-wrap" style="display: <?= $hideHeader === true ? 'none' : '' ?>;">
-        <nav class="nav-menu-group container-margem mx-auto">
-            <a class="nav-menu <?= $nav === 'passagens' ? 'active' : '' ?>" href="<?= $base ?>index.php">
-                <i class="bi bi-airplane-fill"></i> Passagens
-            </a>
-            <a class="nav-menu <?= $nav === 'viagens-digitais' ? 'active' : '' ?>">
-                <i class="bi bi-laptop me-1"></i> Viagens digitais
-            </a>
-            <a class="nav-menu <?= $nav === 'ofertas' ? 'active' : '' ?>">
-                <i class="bi bi-tags me-1"></i> Ofertas
-            </a>
-        </nav>
     </div>
 </header>

@@ -26,6 +26,23 @@ if (session_status() === PHP_SESSION_NONE) {
     $base = ''; //aqui, definimos o caminho até a origem da pasta, isso altera para cada arquivo
     $nav = "passagens";
 
+    require_once($base . "banco/conexao.php");
+    require_once($base . "banco/viagensDAO.php");
+
+    $todasViagens = listarViagens($conexao);
+    $viagens = [];
+
+    $topViagens = [];
+    if (!empty($todasViagens)) {
+        shuffle($todasViagens);
+        $topViagens = array_slice($todasViagens, 0, 4);
+    }
+
+    if (!empty($todasViagens)) {
+        shuffle($todasViagens);
+        $viagens = array_slice($todasViagens, 0, 3);
+    }
+
     if (file_exists('componentes/header.php')) {
         include 'componentes/header.php';
     }

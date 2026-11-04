@@ -150,56 +150,6 @@ $excluirId = $viagem['id']; // para o carrossel não sugerir a própria viagem
                     </div>
                 </div>
             </div>
-
-            <div class="avaliacoes my-5">
-                <h2 class="titulo">Avaliações</h2>
-                <div class="avaliacoes-cards d-flex gap-1 py-3 justify-content-center">
-                    <div class="avaliacao-card p-3">
-                        <div class="avaliacao-header">
-                            <div class="align-items-center d-flex">
-                                <i class="bi bi-person-circle me-2 fs-4"></i>
-                                <h4>Mariana S.</h4>
-                            </div>
-                            <span class="nota"><i class="bi bi-star-fill"></i> 4.8</span>
-                        </div>
-                        <p>Uma experiência incrível! O Cristo Redentor é ainda mais impressionante pessoalmente. Recomendo!</p>
-                    </div>
-
-                    <div class="avaliacao-card p-3">
-                        <div class="avaliacao-header">
-                            <div class="align-items-center d-flex">
-                                <i class="bi bi-person-circle me-2 fs-4"></i>
-                                <h4>Lucas M.</h4>
-                            </div>
-                            <span class="nota"><i class="bi bi-star-fill"></i> 4.8</span>
-                        </div>
-                        <p>Amei as rodas de samba na Lapa! A música e a energia do lugar são contagiantes.</p>
-                    </div>
-
-                    <div class="avaliacao-card p-3">
-                        <div class="avaliacao-header">
-                            <div class="align-items-center d-flex">
-                                <i class="bi bi-person-circle me-2 fs-4"></i>
-                                <h4>Ana P.</h4>
-                            </div>
-                            <span class="nota"><i class="bi bi-star-fill"></i> 4.8</span>
-                        </div>
-                        <p>A Feira de Ipanema é um lugar encantador. Comprei lembranças únicas e conheci artesãos incríveis.</p>
-                    </div>
-
-                    <div class="avaliacao-card p-3">
-                        <div class="avaliacao-header">
-                            <div class="align-items-center d-flex">
-                                <i class="bi bi-person-circle me-2 fs-4"></i>
-                                <h4>Rafael T.</h4>
-                            </div>
-                            <span class="nota"><i class="bi bi-star-fill"></i> 4.8</span>
-                        </div>
-                        <p>A culinária carioca é deliciosa! Experimentei pratos típicos que nunca esquecerei.</p>
-                    </div>
-                </div>
-            </div>
-
         </section>
 
         <!-- CTA final -->

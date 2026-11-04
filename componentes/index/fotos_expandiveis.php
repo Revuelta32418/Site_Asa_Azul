@@ -1,32 +1,23 @@
-<section id="galeria" class="container-margem  justify-content-center d-flex my-4">
+<section id="galeria" class="container-margem justify-content-center d-flex my-4">
     <div class="galeria">
 
-        <div class="cardGaleria">
-            <img src="imagens/rio_de_janeiro.jpg" alt="Paisagem">
-            <div class="info">
-                <h2>Rio de Janeiro</h2>
-                <p>Conheça praias famosas, o Cristo Redentor
-                    e uma das cidades mais bonitas do Brasil.</p>
-            </div>
-        </div>
-
-        <div class="cardGaleria">
-            <img src="imagens/florianopolis.jpg" alt="Paisagem">
-            <div class="info">
-                <h2>Florianópolis</h2>
-                <p>Descubra praias paradisíacas, gastronomia
-                    e muita natureza.</p>
-            </div>
-        </div>
-
-        <div class="cardGaleria">
-            <img src="imagens/porto-seguro.png" alt="Paisagem">
-            <div class="info">
-                <h2>Porto Seguro</h2>
-                <p>História, cultura e praias incríveis para
-                    toda a família.</p>
-            </div>
-        </div>
+        <?php if (!empty($viagens)): ?>
+            <?php foreach ($viagens as $v): ?>
+                <?php 
+                    $partesNome = explode(' - ', $v['nome']);
+                    $nomeCidade = trim($partesNome[0]);
+                ?>
+                <a href="<?= $base ?>paginas/paginapadraoviagens.php?id=<?= $v['id'] ?>" class="cardGaleria text-decoration-none">
+                    <img src="<?= !empty($v['foto1']) ? $base . $v['foto1'] : $base . 'imagens/padrao-viagem.jpg' ?>" 
+                         alt="<?= htmlspecialchars($nomeCidade) ?>">
+                    <div class="info">
+                        <h2><?= htmlspecialchars($nomeCidade) ?></h2>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="text-muted text-center py-4">Nenhuma viagem cadastrada no momento.</p>
+        <?php endif; ?>
 
     </div>
 </section>
