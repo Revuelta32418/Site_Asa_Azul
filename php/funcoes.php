@@ -223,7 +223,7 @@ if (isset($_POST['cadastrar_viagem'])) {
         }
         exit();
     } catch (Exception $e) {
-        $_SESSION['mensagem'] = "Erro ao cadastrar a viagem.";
+        $_SESSION['mensagem'] = "Erro ao cadastrar a viagem: " . $e->getMessage();
         header("Location: " . $voltar);
         exit();
     }
@@ -483,23 +483,10 @@ if (isset($_POST['recusar_roteiro'])) {
         }
 
         $v = buscarViagemPorId($conexao, $viagemId);
-        excluirViagem($conexao, $viagemId);
+        recusarRoteiroViagem($conexao, $viagemId);
 
-        if ($v) {
-            $caminhos = [$v['foto1'] ?? '', $v['foto2'] ?? '', $v['foto3'] ?? '', $v['foto4'] ?? '', $v['impacto_foto'] ?? ''];
-            if (!empty($v['pontos'])) {
-                foreach ($v['pontos'] as $p) {
-                    $caminhos[] = $p['foto'] ?? '';
-                }
-            }
-            foreach ($caminhos as $c) {
-                if (!empty($c) && file_exists($base . $c)) {
-                    unlink($base . $c);
-                }
-            }
-        }
 
-        $_SESSION['mensagem'] = "Roteiro recusado e removido.";
+        $_SESSION['mensagem'] = "Roteiro recusado.";
         $_SESSION['mensagem_tipo'] = 'success';
     } catch (Exception $e) {
         $_SESSION['mensagem'] = "Erro ao recusar roteiro.";

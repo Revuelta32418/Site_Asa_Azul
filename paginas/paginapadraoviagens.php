@@ -27,6 +27,14 @@ if (!$viagem) {
 $hideHeader = true;
 $excluirId = $viagem['id']; // para o carrossel não sugerir a própria viagem
 
+$categorias = [
+    'historico'       => ['label' => 'Patrimônio histórico', 'icone' => 'bi-bank2'],
+    'musical'         => ['label' => 'Tradição musical',     'icone' => 'bi-music-note-beamed'],
+    'artesanato'      => ['label' => 'Artesanato local',     'icone' => 'bi-palette'],
+    'gastronomia'     => ['label' => 'Gastronomia',          'icone' => 'bi-egg-fried'],
+    'natureza'        => ['label' => 'Natureza',             'icone' => 'bi-tree'],
+    'espiritualidade' => ['label' => 'Espiritualidade',      'icone' => 'bi-stars'],
+];
 
 ?>
 
@@ -102,9 +110,16 @@ $excluirId = $viagem['id']; // para o carrossel não sugerir a própria viagem
         </section>
 
         <section class="detalhes container-margem">
-            <div class="descricao px-5">
+            <div class="descricao px-md-5">
                 <h2 class="titulo">Descrição</h2>
-                <p class="text-center"><?= $viagem['descricao'] ?></p>
+                <div class="texto-colapsavel" id="container-descricao">
+                    <p class="text-center text-md-start"><?= $viagem['descricao'] ?></p>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn-ver-mais d-md-none" onclick="toggleVerMais(this, 'container-descricao')">
+                        <span>Ver mais</span> <i class="bi bi-chevron-down"></i>
+                    </button>
+                </div>
             </div>
             <div class="turistando my-5">
                 <h2 class="titulo">Turistando</h2>
@@ -114,8 +129,12 @@ $excluirId = $viagem['id']; // para o carrossel não sugerir a própria viagem
                                 <img src="<?= $base . $ponto['foto'] ?>" alt="<?= htmlspecialchars($ponto['titulo']) ?>">
 
                                 <div class="cultura-info">
+                                    <?php
+                                                    $cat = $categorias[$ponto['categoria']]
+                                                        ?? ['label' => ucfirst($ponto['categoria']), 'icone' => 'bi-geo-alt'];
+                                    ?>
                                     <span class="cultura-tag">
-                                        <i class="bi bi-bank2"></i> <?= htmlspecialchars($ponto['categoria']) ?>
+                                        <i class="bi <?= $cat['icone'] ?>"></i> <?= htmlspecialchars($cat['label']) ?>
                                     </span>
 
                                     <h4><?= htmlspecialchars($ponto['titulo']) ?></h4>
@@ -133,10 +152,17 @@ $excluirId = $viagem['id']; // para o carrossel não sugerir a própria viagem
                         <div class="impacto-texto">
                             <span class="impacto-selo"><i class="bi bi-leaf-fill"></i> Turismo de impacto positivo</span>
                             <h2>Sua viagem também transforma quem vive aqui</h2>
-                            <p>
-                                <?= $viagem['impacto_positivo'] ?>
-                            </p>
-                            <ul class="impacto-lista">
+
+                            <div class="texto-colapsavel" id="container-impacto">
+                                <p><?= $viagem['impacto_positivo'] ?></p>
+                            </div>
+                            <div>
+                                <button type="button" class="btn-ver-mais d-md-none" onclick="toggleVerMais(this, 'container-impacto')">
+                                    <span>Ver mais</span> <i class="bi bi-chevron-down"></i>
+                                </button>
+                            </div>
+
+                            <ul class="impacto-lista mt-3">
                                 <?php if (!empty($viagem['impacto_topicos'])): ?>
                                     <?php foreach ($viagem['impacto_topicos'] as $topico): ?>
                                         <li><i class="bi bi-check-circle-fill"></i> <?= htmlspecialchars($topico) ?></li>

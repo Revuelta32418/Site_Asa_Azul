@@ -6,10 +6,12 @@ if (session_status() === PHP_SESSION_NONE) {
 $base = '../';
 require_once($base . "banco/conexao.php");
 require_once($base . "banco/reservasDAO.php");
+require_once($base . "banco/guiasDAO.php");
 
 // Se o usuário não estiver logado, redireciona para a home ou exibe aviso
 $usuarioId = $_SESSION['usuario_id'] ?? null;
 $minhasReservas = $usuarioId ? listarReservasPorUsuario($conexao, $usuarioId) : [];
+$meusRoteiros = $usuarioId ? listarRoteirosPorGuia($conexao, $_SESSION['usuario_nome']) : [];
 
 $hideHeader = true; // Mantém o padrão de exibição do header
 ?>
@@ -32,6 +34,9 @@ $hideHeader = true; // Mantém o padrão de exibição do header
     if (file_exists($base . 'componentes/header.php')) {
         include $base . 'componentes/header.php';
     }
+    if (file_exists('../componentes/modallogin.php')) {
+        include '../componentes/modallogin.php';
+    }
     if (file_exists($base . 'componentes/toast.php')) {
         include $base . 'componentes/toast.php';
     }
@@ -39,7 +44,7 @@ $hideHeader = true; // Mantém o padrão de exibição do header
 
     <main class="py-5" style="min-height: 75vh;">
         <section class="container-margem mx-auto px-3">
-            
+
             <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
                 <div>
                     <h1 class="titulo text-start mb-1">Minhas Viagens</h1>
@@ -81,22 +86,22 @@ $hideHeader = true; // Mantém o padrão de exibição do header
                 <div class="row g-4">
                     <?php foreach ($minhasReservas as $reserva): ?>
                         <?php
-                            $badgeClass = 'bg-warning text-dark';
-                            if ($reserva['status'] === 'confirmada') {
-                                $badgeClass = 'bg-success text-white';
-                            } elseif ($reserva['status'] === 'cancelada') {
-                                $badgeClass = 'bg-danger text-white';
-                            }
+                        $badgeClass = 'bg-warning text-dark';
+                        if ($reserva['status'] === 'confirmada') {
+                            $badgeClass = 'bg-success text-white';
+                        } elseif ($reserva['status'] === 'cancelada') {
+                            $badgeClass = 'bg-danger text-white';
+                        }
                         ?>
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
-                                
+
                                 <div class="position-relative">
-                                    <img src="<?= !empty($reserva['foto1']) ? $base . $reserva['foto1'] : $base . 'imagens/padrao-viagem.jpg' ?>" 
-                                         class="card-img-top" 
-                                         alt="<?= htmlspecialchars($reserva['nome_viagem']) ?>" 
-                                         style="height: 200px; object-fit: cover;">
-                                    
+                                    <img src="<?= !empty($reserva['foto1']) ? $base . $reserva['foto1'] : $base . 'imagens/padrao-viagem.jpg' ?>"
+                                        class="card-img-top"
+                                        alt="<?= htmlspecialchars($reserva['nome_viagem']) ?>"
+                                        style="height: 200px; object-fit: cover;">
+
                                     <span class="badge position-absolute top-0 end-0 m-3 rounded-pill px-3 py-2 <?= $badgeClass ?>">
                                         <?= ucfirst(htmlspecialchars($reserva['status'])) ?>
                                     </span>
@@ -105,11 +110,11 @@ $hideHeader = true; // Mantém o padrão de exibição do header
                                 <div class="card-body p-4 d-flex flex-column justify-content-between">
                                     <div>
                                         <h5 class="fw-bold text-primary mb-3"><?= htmlspecialchars($reserva['nome_viagem']) ?></h5>
-                                        
+
                                         <div class="d-flex align-items-center gap-2 text-muted small mb-2">
                                             <i class="bi bi-calendar-check text-primary"></i>
                                             <span>
-                                                <strong>Ida:</strong> <?= date('d/m/Y', strtotime($reserva['ida'])) ?> | 
+                                                <strong>Ida:</strong> <?= date('d/m/Y', strtotime($reserva['ida'])) ?> |
                                                 <strong>Volta:</strong> <?= date('d/m/Y', strtotime($reserva['volta'])) ?>
                                             </span>
                                         </div>
@@ -140,6 +145,87 @@ $hideHeader = true; // Mantém o padrão de exibição do header
             <?php endif; ?>
 
         </section>
+
+        <?php if ($usuarioId && ($_SESSION['usuario_tipo'] ?? '') === 'guia'): ?>
+            <section class="container-margem mx-auto px-3">
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                    <div>
+                        <h1 class="titulo text-start mb-1">Meus roteiros</h1>
+                        <p class="text-muted m-0">Acompanhe seus roteiros de viagens.</p>
+                    </div>
+                    <a href="<?= $base ?>paginas/cadastrar.php" class="btn btn-outline-primary rounded-pill px-4">
+                        <i class="bi bi-journal-plus me-1"></i> Criar roteiro
+                    </a>
+                </div>
+
+                <?php if (empty($meusRoteiros)): ?>
+                    <!-- Caso o usuário não possua roteiros de viagem -->
+                    <div class="card border-0 shadow-sm rounded-4 text-center p-5 my-4">
+                        <i class="bi bi-luggage text-muted display-4 mb-3"></i>
+                        <h4 class="fw-bold text-secondary">Nenhum roteiro encontrado</h4>
+                        <p class="text-muted">Você ainda não criou nenhum roteiro. Que tal criar um agora?</p>
+                        <div class="mt-2">
+                            <a href="<?= $base ?>paginas/cadastrar.php" class="btn btn-outline-primary rounded-pill px-4">
+                                <i class="bi bi-journal-plus me-1"></i> Criar roteiro
+                            </a>
+                        </div>
+                    </div>
+
+                <?php else: ?>
+                    <!-- Grid com os Cards dos Roteiros do guia -->
+                    <div class="row g-4">
+                        <?php foreach ($meusRoteiros as $roteiro): ?>
+                            <?php
+                            $badgeClass = 'bg-warning text-dark';
+                            if ($roteiro['status'] === 'aprovado') {
+                                $badgeClass = 'bg-success text-white';
+                            } elseif ($roteiro['status'] === 'recusado') {
+                                $badgeClass = 'bg-danger text-white';
+                            }
+                            ?>
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+
+                                    <div class="position-relative">
+                                        <img src="<?= !empty($roteiro['foto1']) ? $base . $roteiro['foto1'] : $base . 'imagens/padrao-viagem.jpg' ?>"
+                                            class="card-img-top"
+                                            alt="<?= htmlspecialchars($roteiro['nome']) ?>"
+                                            style="height: 200px; object-fit: cover;">
+
+                                        <span class="badge position-absolute top-0 end-0 m-3 rounded-pill px-3 py-2 <?= $badgeClass ?>">
+                                            <?= ucfirst(htmlspecialchars($roteiro['status'])) ?>
+                                        </span>
+                                    </div>
+
+                                    <div class="card-body p-4 d-flex flex-column justify-content-between">
+                                        <div>
+                                            <h5 class="fw-bold text-primary mb-3"><?= htmlspecialchars($roteiro['nome']) ?></h5>
+                                            <p><?= htmlspecialchars(mb_strimwidth($roteiro['descricao'], 0, 110, '...')) ?></p>
+                                        </div>
+
+                                        <div class="pt-3 border-top d-flex align-items-center justify-content-between mt-3">
+                                            <div>
+                                                <span class="text-muted small d-block">Valor Estimado</span>
+                                                <strong class="text-success fs-5">R$ <?= number_format($roteiro['preco'], 2, ',', '.') ?></strong>
+                                            </div>
+                                            <a href="<?= $base ?>paginas/paginapadraoviagens.php?id=<?= $roteiro['id'] ?>" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                                Ver Destino
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+
+            </section>
+
+        <?php endif; ?>
+
     </main>
 
     <?php

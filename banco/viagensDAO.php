@@ -9,11 +9,11 @@ function cadastrarViagem($conexao, array $v){
         $sql = "INSERT INTO viagens
                 (nome, slug, criado_por, foto1, foto2, foto3, foto4, preco, dias_sugeridos,
                  melhor_epoca, descricao, impacto_positivo, impacto_foto, status)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($conexao, $sql);
         mysqli_stmt_bind_param(
             $stmt,
-            "sssssssdssssssi",
+            "sssssssdssssss",
             $v['nome'],
             $v['slug'],      
             $v['criado_por'],
@@ -68,6 +68,16 @@ function cadastrarViagem($conexao, array $v){
 function aprovarRoteiroViagem($conexao, $idViagem) 
 {
     $sql = "UPDATE viagens SET status = 'aprovado' WHERE id = ?";
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $idViagem);
+    $res = mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    return $res;
+}
+
+function recusarRoteiroViagem($conexao, $idViagem) 
+{
+    $sql = "UPDATE viagens SET status = 'recusado' WHERE id = ?";
     $stmt = mysqli_prepare($conexao, $sql);
     mysqli_stmt_bind_param($stmt, "i", $idViagem);
     $res = mysqli_stmt_execute($stmt);

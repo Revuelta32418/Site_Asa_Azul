@@ -119,7 +119,7 @@
     background: var(--branco);
     border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(13,59,110,.10);
+    box-shadow: 0 10px 30px rgba(13, 59, 110, .10);
 }
 
 .cultura-card img {
@@ -176,7 +176,7 @@
     display: inline-flex;
     align-items: center;
     gap: .4rem;
-    background: rgba(21,101,192,.12);
+    background: rgba(21, 101, 192, .12);
     color: var(--azul);
     font-size: .75rem;
     font-weight: 700;
@@ -194,10 +194,33 @@
     margin-bottom: .8rem;
 }
 
-.impacto-texto > p {
+.impacto-texto>p {
     color: var(--cinza-azul);
     line-height: 1.6;
     margin-bottom: 1.2rem;
+}
+
+.btn-ver-mais {
+    background-color: transparent;
+    color: var(--azul, #1565C0);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.4rem 1.1rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.8rem;
+    transition: all 0.25s ease;
+}
+
+.btn-ver-mais:hover {
+    color: var(--branco, #ffffff);
+}
+
+.btn-ver-mais i {
+    font-size: 0.8rem;
+    transition: transform 0.25s ease;
 }
 
 .impacto-lista {
@@ -230,29 +253,6 @@
     object-fit: cover;
 }
 
-/* ---- Avaliações ---- */
-.avaliacoes-cards {
-    overflow-x: auto;
-}
-
-.avaliacao-card{
-    border: 1px solid #E8EEF3;
-    border-radius: 10px;
-}
-
-.avaliacao-card .bi-person-circle{
-    color: #1565C0;
-}
-
-.avaliacao-header h4{
-    font-size: 18px;
-    margin: auto 0;
-}
-
-.nota {
-    color: #F9A825;
-}
-
 /* =========================================
    RESPONSIVIDADE
    ========================================= */
@@ -268,17 +268,70 @@
     .impacto-texto {
         padding: 1.8rem;
     }
-
-    /* Avaliações: cards com largura mínima definida (hoje não tinham) */
-    .avaliacao-card {
-        flex: 0 0 260px;
-    }
 }
 
 @media (max-width: 768px) {
 
+    /* ---- Limitação de Texto com Ver Mais no Mobile ---- */
+    .texto-colapsavel {
+        position: relative;
+        max-height: 120px;
+        /* Altura inicial do texto recolhido */
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out;
+    }
+
+    /* Sombra gradiente no final do texto recolhido */
+    .texto-colapsavel::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--branco, #ffffff));
+        pointer-events: none;
+        transition: opacity 0.3s;
+    }
+
+    /* Ajuste do gradiente de fundo para o card de impacto */
+    .impacto-texto .texto-colapsavel::after {
+        background: linear-gradient(to bottom, rgba(227, 242, 253, 0), var(--azul-bem-claro, #e3f2fd));
+    }
+
+    /* Quando expandido */
+    .texto-colapsavel.expandido {
+        max-height: 2000px;
+        /* Altura suficiente para mostrar todo o texto */
+    }
+
+    .texto-colapsavel.expandido::after {
+        opacity: 0;
+    }
+
+    /* Botão Ver Mais */
+    .btn-ver-mais {
+        background: none;
+        border: none;
+        color: var(--azul, #1565C0);
+        font-weight: 700;
+        font-size: 0.9rem;
+        padding: 0.4rem 0;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        margin-top: 0.5rem;
+    }
+
+    .btn-ver-mais:hover {
+        text-decoration: underline;
+        color: var(--azul-escuro, #0d3b6e);
+    }
+
     .pagina-viagem-main {
-        margin-top: 140px; /* ajuste esse valor conferindo a altura real do header no mobile via DevTools */
+        margin-top: 140px;
+        /* ajuste esse valor conferindo a altura real do header no mobile via DevTools */
     }
 
     /* ---- Galeria hero: empilha as 4 fotos em vez de espremer lado a lado ---- */
@@ -343,16 +396,7 @@
         height: 200px;
     }
 
-    /* ---- Avaliações: cards um pouco mais estreitos ---- */
-    .avaliacao-card {
-        flex: 0 0 240px;
-    }
 
-    .avaliacoes-cards {
-        gap: 12px;
-        justify-content: flex-start !important; /* sobrescreve o justify-content-center do Bootstrap,
-                                                     senão o scroll horizontal fica difícil de usar */
-    }
 
     /* ---- CTA final: reduz textos e padding ---- */
     .viagem-cta {
@@ -376,15 +420,6 @@
 
     .cultura-card {
         flex: 0 0 180px;
-    }
-
-    .avaliacao-card {
-        flex: 0 0 210px;
-        padding: 1rem !important;
-    }
-
-    .avaliacao-header h4 {
-        font-size: 15px;
     }
 
     .impacto-lista li {

@@ -85,6 +85,8 @@ nav a,
     text-decoration: none;
     padding: 5px 10px;
     border-radius: 50px;
+    border: 0;
+    background: transparent;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 

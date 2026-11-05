@@ -104,3 +104,22 @@ function recusarPedidoGuia($conexao, $pedidoId)
         return false;
     }
 }
+
+function listarRoteirosPorGuia($conexao, $guiaNome)
+{
+    $stmt = mysqli_prepare(
+        $conexao,
+        "SELECT * FROM viagens WHERE criado_por = ? ORDER BY id DESC"
+    );
+    mysqli_stmt_bind_param($stmt, "s", $guiaNome);
+    mysqli_stmt_execute($stmt);
+    $resultado = mysqli_stmt_get_result($stmt);
+    
+    $roteiros = [];
+    while ($linha = mysqli_fetch_assoc($resultado)) {
+        $roteiros[] = $linha;
+    }
+    
+    mysqli_stmt_close($stmt);
+    return $roteiros;
+}

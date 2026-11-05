@@ -26,9 +26,10 @@
                 </a>
 
             <?php else: ?>
-                <a href="#" class="nav-suporte">
+                <button type="button" class="nav-suporte" data-bs-toggle="modal" data-bs-target="#modalSejaGuia">
                     <i class="bi bi-compass me-1"></i> Seja um guia
-                </a>
+                </button>
+                
                 <a href="<?= $base ?>paginas/minhasviagens.php" class="nav-suporte">
                     <i class="bi bi-luggage-fill me-1"></i> Minhas viagens
                 </a>

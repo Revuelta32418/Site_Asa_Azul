@@ -57,11 +57,12 @@ if (session_status() === PHP_SESSION_NONE) {
     ?>
 
     <main>
-        <?php
-        if (file_exists('componentes/index/hero_formulario.php')) {
-            include 'componentes/index/hero_formulario.php';
-        }
+        <section class="container-margem py-5 text-center" id="hero">
+            <h1 class="fw-bold">Descubra o Brasil<br>que você ainda não conhece</h1>
+            <p class="mx-auto">Voos nacionais para destinos famosos e destinos escondidos — tudo em um só lugar.</p>
+        </section>
 
+        <?php
         if (file_exists('componentes/index/fotos_expandiveis.php')) {
             include 'componentes/index/fotos_expandiveis.php';
         }

@@ -285,6 +285,9 @@ $roteirosPendentes = listarRoteirosPendentes($conexao);
                                                 <td class="text-end">
                                                     <form action="<?= $base ?>php/funcoes.php" method="POST" class="d-inline">
                                                         <input type="hidden" name="viagem_id" value="<?= $r['id'] ?>">
+                                                        <a href="paginapadraoviagens.php?id=<?= $r['id'] ?>" class="btn-acao bg-light text-dark" title="Visualizar">
+                                                            <i class="bi bi-eye"></i>
+                                                        </a>
                                                         <button type="submit" name="aprovar_roteiro" class="btn btn-sm btn-success rounded-pill px-3">
                                                             <i class="bi bi-check-lg"></i> Aprovar
                                                         </button>

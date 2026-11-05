@@ -23,7 +23,7 @@ $textoBotao = $ehGuia ? "Enviar Roteiro para Aprovação" : "Cadastrar Viagem";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asa Azul | Cadastrar Viagem</title>
+    <title>Asa Azul | <?= $tituloForm ?></title>
     <link rel="shortcut icon" href="../imagens/arara_com_circulo.png">
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/estilogeral.css">
@@ -48,7 +48,7 @@ $textoBotao = $ehGuia ? "Enviar Roteiro para Aprovação" : "Cadastrar Viagem";
 
     <main>
         <section class="container-margem pagina-cadastro">
-            <h1 class="titulo">Cadastrar Viagem</h1>
+            <h1 class="titulo"><?= $tituloForm ?></h1>
 
             <form class="form-cadastro mx-auto rounded-4 p-5" method="POST" action="<?= $base ?>php/funcoes.php" enctype="multipart/form-data">
 
@@ -273,10 +273,12 @@ $textoBotao = $ehGuia ? "Enviar Roteiro para Aprovação" : "Cadastrar Viagem";
     </main>
 
     <?php
-    if (file_exists('../../componentes/footer.php')) {
-        include '../../componentes/footer.php';
+    if (file_exists('../componentes/footer.php')) {
+        include '../componentes/footer.php';
     }
     ?>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/jsgeral.js"></script>
 
 </body>
 
