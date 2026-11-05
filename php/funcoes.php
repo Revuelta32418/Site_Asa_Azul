@@ -355,7 +355,7 @@ if (isset($_POST['confirmar_reserva'])) {
     ];
 
     if (criarReserva($conexao, $reserva)) {
-        $_SESSION['mensagem'] = "Reserva realizada com sucesso! Entraremos em contato em breve.";
+        $_SESSION['mensagem'] = "Reserva solicitada com sucesso! Seu pedido está pendente de análise.";
         $_SESSION['mensagem_tipo'] = 'success';
     } else {
         $_SESSION['mensagem'] = "Erro ao registrar reserva. Tente novamente.";

@@ -71,6 +71,9 @@ $categorias = [
     if (file_exists('../componentes/modalreservar.php')) {
         include '../componentes/modalreservar.php';
     }
+    if (file_exists('../componentes/modallogout.php')) {
+        include '../componentes/modallogout.php';
+    }
     ?>
 
     <!------------------main----------------->
@@ -78,13 +81,33 @@ $categorias = [
 
         <!-----Galeria de fotos que abre------->
         <section class="viagem-hero-galeria container-margem pb-3">
-
             <h1 class="titulo mb-4"><?php echo $viagem['nome']; ?></h1>
-            <div class="hero-galeria-grid">
+
+            <!-- Galeria Grid Original (Visível apenas em Desktop: >= 768px) -->
+            <div class="hero-galeria-grid d-none d-md-flex">
                 <img src="<?php echo $base . $viagem['foto1']; ?>" alt="Foto 1 da viagem">
                 <img src="<?php echo $base . $viagem['foto2']; ?>" alt="Foto 2 da viagem">
                 <img src="<?php echo $base . $viagem['foto3']; ?>" alt="Foto 3 da viagem">
                 <img src="<?php echo $base . $viagem['foto4']; ?>" alt="Foto 4 da viagem">
+            </div>
+
+            <!-- Carrossel Mobile (Visível apenas no Mobile: < 768px, 2 fotos por slide) -->
+            <div class="galeria-vagoes-wrapper d-md-none">
+                <div class="galeria-tunel">
+                    <div class="galeria-vagoes" id="galeriaVagoes">
+                        <div class="foto-vagao"><img src="<?php echo $base . $viagem['foto1']; ?>" alt="Foto 1"></div>
+                        <div class="foto-vagao"><img src="<?php echo $base . $viagem['foto2']; ?>" alt="Foto 2"></div>
+                        <div class="foto-vagao"><img src="<?php echo $base . $viagem['foto3']; ?>" alt="Foto 3"></div>
+                        <div class="foto-vagao"><img src="<?php echo $base . $viagem['foto4']; ?>" alt="Foto 4"></div>
+                    </div>
+                </div>
+
+                <!-- Indicadores (Bolinhas) Sobrepostos -->
+                <div class="galeria-indicadores" id="galeriaIndicadores">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
             </div>
         </section>
 

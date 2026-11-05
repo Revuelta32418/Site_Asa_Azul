@@ -40,6 +40,9 @@ $hideHeader = true; // Mantém o padrão de exibição do header
     if (file_exists($base . 'componentes/toast.php')) {
         include $base . 'componentes/toast.php';
     }
+    if (file_exists('../componentes/modallogout.php')) {
+        include '../componentes/modallogout.php';
+    }
     ?>
 
     <main class="py-5" style="min-height: 75vh;">

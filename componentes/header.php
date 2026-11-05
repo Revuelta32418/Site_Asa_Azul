@@ -26,10 +26,18 @@
                 </a>
 
             <?php else: ?>
-                <button type="button" class="nav-suporte" data-bs-toggle="modal" data-bs-target="#modalSejaGuia">
-                    <i class="bi bi-compass me-1"></i> Seja um guia
-                </button>
-                
+                <?php $tipoAtual = $_SESSION['usuario_tipo'] ?? 'cliente'; ?>
+
+                <?php if (!isset($_SESSION['usuario_id'])): ?>
+                    <button type="button" class="nav-suporte" data-bs-toggle="modal" data-bs-target="#modalLogin">
+                        <i class="bi bi-compass me-1"></i> Seja um guia
+                    </button>
+                <?php elseif ($tipoAtual === 'cliente'): ?>
+                    <button type="button" class="nav-suporte" data-bs-toggle="modal" data-bs-target="#modalSejaGuia">
+                        <i class="bi bi-compass me-1"></i> Seja um guia
+                    </button>
+                <?php endif; ?>
+
                 <a href="<?= $base ?>paginas/minhasviagens.php" class="nav-suporte">
                     <i class="bi bi-luggage-fill me-1"></i> Minhas viagens
                 </a>
@@ -43,13 +51,11 @@
                     <span class="usuario-nome">
                         <?= htmlspecialchars(explode(' ', $_SESSION['usuario_nome'])[0]) ?>
                     </span>
-                    <form action="<?= $base ?>php/funcoes.php" method="POST" class="d-inline">
-                        <button type="submit" name="logout"
-                            class="btn-logout d-flex align-items-center justify-content-center small ms-1"
+                        <button type="submit" class="btn-logout d-flex align-items-center
+                         justify-content-center small ms-1" data-bs-toggle="modal" data-bs-target="#modalLogout"
                             title="Sair">
                             <i class="bi bi-box-arrow-right"></i>
                         </button>
-                    </form>
                 </div>
             <?php else: ?>
                 <button class="login-btn rounded-pill p-2 text-nowrap border-0 text-white d-flex gap-2" data-bs-toggle="modal" data-bs-target="#modalLogin">

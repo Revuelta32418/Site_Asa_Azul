@@ -55,14 +55,18 @@ if (session_status() === PHP_SESSION_NONE) {
 
                     <!-- Estilo Viajante -->
                     <div class="mb-3">
-                        <label for="estiloViajante" class="form-label fw-semibold">Estilo Viajante</label>
+                        <label for="estiloViajante" class="form-label fw-semibold">Estilo de viagem</label>
                         <select class="form-select rounded-3" id="estiloViajante" name="estilo_viajante" required>
                             <option value="" selected disabled>Selecione o estilo...</option>
-                            <option value="Mochilão">Mochilão</option>
-                            <option value="AirBnB">AirBnB</option>
-                            <option value="Tradicional">Tradicional</option>
-                            <option value="VIP">VIP</option>
+                            <option value="Econômico">Econômico</option>
+                            <option value="Conforto">Conforto</option>
+                            <option value="Premium">Premium</option>
+                            <option value="Imersão cultural">Imersão cultural</option>
+                            <option value="Turismo comunitário">Turismo comunitário</option>
                         </select>
+                        <div class="form-text">
+                            Isso nos ajuda a sugerir hospedagem e experiências no seu perfil.
+                        </div>
                     </div>
 
                     <!-- Nome Completo -->
@@ -86,7 +90,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                     <!-- Ato que quer gastar / Observações -->
                     <div class="mb-3">
-                        <label for="reservaObservacao" class="form-label fw-semibold">Ato que quer gastar / Observações</label>
+                        <label for="reservaObservacao" class="form-label fw-semibold">Observações</label>
                         <textarea class="form-control rounded-3" id="reservaObservacao" name="observacoes" rows="2" placeholder="Ex: orçamento pretendido, preferências ou detalhes especiais..."></textarea>
                     </div>
 

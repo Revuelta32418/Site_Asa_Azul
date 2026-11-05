@@ -4,8 +4,8 @@ function criarReserva($conexao, array $r)
     $sql = "INSERT INTO reservas (
                 viagem_id, usuario_id, ida, volta, 
                 num_pessoas, num_criancas, idade_criancas, num_idosos, 
-                estilo_viajante, nome, cpf, telefone, observacoes
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                estilo_viajante, nome, cpf, telefone, observacoes, status
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pendente')";
 
     $stmt = mysqli_prepare($conexao, $sql);
     if (!$stmt) {

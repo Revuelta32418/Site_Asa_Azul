@@ -51,6 +51,10 @@ if (session_status() === PHP_SESSION_NONE) {
         include 'componentes/modallogin.php';
     }
 
+    if (file_exists('componentes/modallogout.php')) {
+        include 'componentes/modallogout.php';
+    }
+
     if (file_exists('componentes/toast.php')) {
         include 'componentes/toast.php';
     }

@@ -49,6 +49,10 @@ $roteirosPendentes = listarRoteirosPendentes($conexao);
     if (file_exists('../componentes/toast.php')) {
         include '../componentes/toast.php';
     }
+
+    if (file_exists('../componentes/modallogout.php')) {
+        include '../componentes/modallogout.php';
+    }
     ?>
 
     <main class="admin-dashboard">

@@ -64,6 +64,9 @@ $hideHeader = true;
     if (file_exists('../componentes/header.php')) {
         include '../componentes/header.php';
     }
+    if (file_exists('../componentes/modallogout.php')) {
+        include '../componentes/modallogout.php';
+    }
     ?>
 
     <main>

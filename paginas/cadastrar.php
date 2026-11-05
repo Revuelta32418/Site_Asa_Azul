@@ -36,13 +36,13 @@ $textoBotao = $ehGuia ? "Enviar Roteiro para Aprovação" : "Cadastrar Viagem";
     $base = '../';
 
     if (file_exists('../componentes/header.php')) {
-        $hideHeader = true;
         include '../componentes/header.php';
     }
-
     if (file_exists('../componentes/toast.php')) {
-        $hideHeader = true;
         include '../componentes/toast.php';
+    }
+    if (file_exists('../componentes/modallogout.php')) {
+        include '../componentes/modallogout.php';
     }
     ?>
 
